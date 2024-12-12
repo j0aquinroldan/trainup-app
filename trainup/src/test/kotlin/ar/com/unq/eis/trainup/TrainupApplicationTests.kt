@@ -315,6 +315,7 @@ class TrainupApplicationTests {
             val rutina = Rutina(
                 id = null,
                 nombre = "Rutina $categoria $i",
+                img = null,
                 descripcion = "Entrenamiento enfocado en $categoria",
                 categoria = categoria,
                 dificultad = if (i % 2 == 0) "Intermedio" else "Avanzado",

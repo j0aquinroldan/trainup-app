@@ -3,7 +3,7 @@ package ar.com.unq.eis.trainup.dao
 import ar.com.unq.eis.trainup.model.Usuario
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Repository
-import java.util.Optional
+import java.util.*
 
 @Repository
 interface UsuarioDAO: MongoRepository<Usuario, String> {
