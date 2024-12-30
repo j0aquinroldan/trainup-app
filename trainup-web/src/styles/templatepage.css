@@ -21,11 +21,18 @@
     height: 100%;
 }
 
-.temp-content {
+/* .temp-content {
     width: 100%;
     height: 100%;
     padding: 20px;
     overflow-y: auto;
+} */
+
+.temp-content {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .temp-content-body {
