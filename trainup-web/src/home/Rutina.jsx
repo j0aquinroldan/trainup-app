@@ -18,14 +18,15 @@ const Rutina = () => {
     const [dificultad, setDificultad] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [imgSrc, setImgSrc] = useState('')
-
+    const [categoria, setCategoria] = useState('')
+    
     useEffect(() => {
         obtenerRutinaPorId(rutinaID).then(({ data }) => {
             setListaDeEjercicios(data.ejercicios)
             setDescripcion(data.descripcion)
             setDificultad(data.dificultad)
-            console.log(data.img)
             setImgSrc(data.img)
+            setCategoria(data.categoria)
         }).catch((error) => {
             console.log(error)
         })
@@ -69,34 +70,40 @@ const Rutina = () => {
     console.log(imgSrc)
 
     return (
-        <>
+        <div className='rutina-header'>
             <div className="rutina-container">
-                <div className="rutina-info">
-                    <h1 className="rutina-title">Ejercicios de {nombre}</h1>
+                {/* <div className="rutina-info"> */}
+                    {imgSrc && (
+                    <img src={imgSrc} className="rutina-img" alt={`imagen de rutina ${nombre}`} />
+                )}
+                    <h1 className="rutina-title">{nombre}</h1>
+                    <h1 >{descripcion}</h1>
                     <div className="card-footer">
+                        <p className='category'>{categoria}</p>
                         <p className={'category ' + `${dificultad.toLowerCase()}`}>{dificultad}</p>
                     </div>
 
                     {user.esAdmin ? (
-                        <Button onClick={handleCreateExercise} type="primary" className="create-btn">
+                        <Button onClick={handleCreateExercise} type="primary">
                             Crear Ejercicio
                         </Button>
                     ) : (
                         <FollowBtn initFollow={isFollowed} rutinaID={rutinaID} />
                     )}
-                </div>
+                {/* </div> */}
 
-                {imgSrc && (
-                    <img src={imgSrc} className="rutina-img" alt={`imagen de rutina ${nombre}`} />
-                )}
+                
             </div>
 
+            
+
             <div className='container-boxinfo'>
+                <h1 className="rutina-title">Ejercicios</h1>
                 {listaDeEjercicios.map(ejercicio => (
                     <Ejercicio key={ejercicio.id} updateEjercicio={updateEjercicio} deleteEjercicio={deleteEjercicio} ejercicio={ejercicio} rutinaID={rutinaID} />
                 ))}
             </div>
-        </>
+        </div>
     );
 
 };

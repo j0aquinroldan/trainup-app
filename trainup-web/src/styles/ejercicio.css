@@ -9,7 +9,7 @@
 }
 
 .exercise-container:hover {
-    transform: scale(1.03);
+    background-color: #f7f7f7;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
 
@@ -36,8 +36,7 @@
 }
 
 .exercise-body,
-.exercise-details,
-.exercise-footer {
+.exercise-details {
     margin-bottom: 1rem; 
     line-height: 1.6;
 }
@@ -45,9 +44,10 @@
 .exercise-footer {
     display: flex;
     gap: 0.625rem; 
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: center;
     padding-top: 0.625rem; 
+    line-height: 1.6;
     border-top: 1px solid #e0e0e0;
 }
 

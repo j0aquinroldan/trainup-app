@@ -3,7 +3,7 @@ import { notification } from 'antd';
 import 'antd/dist/reset.css';
 
 // URL base de la API 
-axios.defaults.baseURL = "https://trainup-app-production.up.railway.app/api"
+axios.defaults.baseURL = "http://localhost:8080/api"
 
 const handleError = (error) => {
   let errorMessage = 'Ocurrió un error inesperado';
