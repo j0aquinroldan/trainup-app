@@ -7,7 +7,7 @@ const Favoritas = ({rutinas}) => {
     
 
   return (
-    <div className='container-boxinfo'>
+    <div className='container-boxinfo width100'>
 
         {
             rutinas && rutinas.length > 0 ? (rutinas.map(rutina => (<CardRutinaSimple rutina={rutina} />))) 

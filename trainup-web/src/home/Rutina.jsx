@@ -97,7 +97,7 @@ const Rutina = () => {
 
             
 
-            <div className='container-boxinfo'>
+            <div className='container-boxinfo overflow-y-auto'>
                 <h1 className="rutina-title">Ejercicios</h1>
                 {listaDeEjercicios.map(ejercicio => (
                     <Ejercicio key={ejercicio.id} updateEjercicio={updateEjercicio} deleteEjercicio={deleteEjercicio} ejercicio={ejercicio} rutinaID={rutinaID} />

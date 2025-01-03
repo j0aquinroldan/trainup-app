@@ -21,19 +21,16 @@
 
 .container-boxinfo {
     display: flex;
-    flex-direction: column;
-    /* Mantén el diseño en columna */
-    gap: 10px;
-    /* Espaciado entre los elementos */
-    /* width: 100%; */
-    /* Asegura que ocupe todo el ancho */
-    overflow-y: auto;
-    /* Añade scroll solo si el contenido excede la altura */
+    flex-direction: column;  
+    gap: 10px;    
     box-sizing: border-box;
-    /* Asegura que el padding y bordes sean incluidos */
     color: black;
     padding-inline: 30px;
+    text-align: start;
+}
 
+.width100{
+    width: 100%;
 }
 
 .boxinfo {
@@ -109,7 +106,7 @@
 .card-footer {
     display: flex;
     justify-content: flex-start;
-    gap: inherit;
+    gap: 1rem;
     align-items: center;
     margin-top: auto;
 }
