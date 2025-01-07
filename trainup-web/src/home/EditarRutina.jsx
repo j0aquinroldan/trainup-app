@@ -42,7 +42,7 @@ const EditarRutina = () => {
     }
 
     return (
-        <div className='max-size-vh flx center '>
+        <div className=' flx center '>
             <Form name='Editar Rutina' btnName='Guardar' handlerSubmit={handlerSubmit}>
 
                 <ElementForm
@@ -53,6 +53,7 @@ const EditarRutina = () => {
                     setText={setNombre}
                     initialValue={nombre}
                     required={true}
+                    errorMessage='El campo titulo no puede estar vacío'
                 />
                 <ElementForm
                     title='Descripcion'
@@ -62,6 +63,7 @@ const EditarRutina = () => {
                     setText={setDescripcion}
                     initialValue={descripcion}
                     required={true}
+                    errorMessage='El campo descripcion no puede estar vacío'
                 />
                 <ElementForm
                     title='Categoria'
@@ -71,6 +73,7 @@ const EditarRutina = () => {
                     setText={setCategoria}
                     initialValue={categoria}
                     required={true}
+                    errorMessage='El campo categoria no puede estar vacío'
                 />
                 <select value={dificultad} onChange={handleDificultadChange} className='modern-btn primary-btn'>
                     <option value="" disabled>Dificultad</option>

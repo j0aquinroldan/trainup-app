@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 
-const ElementForm = ({ name, type, id, title, setText, initialValue = '', required = false }) => {
+const ElementForm = ({ name, type, id, title, setText, initialValue, required, pattern, errorMessage }) => {
 
   const [valueText, setValueText] = useState('')
   const [error, setError] = useState('');
 
 
   useEffect(() => {
-    if (initialValue) {
-      setValueText(initialValue);
-    }
-  }, [])
+  
+      setValueText(initialValue || '');
+  
+  }, [initialValue])
 
 
   const handlerChange = (e) => {
@@ -18,27 +18,30 @@ const ElementForm = ({ name, type, id, title, setText, initialValue = '', requir
     setValueText(value);
     setText(value);
 
-    if (required && value.trim() === '') {
-      setError(`El campo ${name} no puede estar vacío`);
-    } else {
-      setError('');
-    }
+    // if (required && value.trim() === '') {
+    //   setError(`El campo ${name} no puede estar vacío`);
+    // } else {
+    //   setError('');
+    // }
   };
 
 
 
   return (
-    <div className='default-box none-mp column-box'>
+    <div className='default-box form-element'>
       <label htmlFor={type} className='bold'>{title}</label>
       <input
-        className={`primary-textbar textbar-xxl ${error ? 'error-input' : ''} `}
+        className={`primary-textbar`}
         type={type}
         name={name}
         value={valueText}
         placeholder={name}
         id={id}
+        errorMessage={errorMessage}
+        pattern={pattern}
+        required={required}
         onChange={handlerChange} />
-      {error && <span className='error-message'>{error}</span>}
+      <span className='error-message'>{errorMessage}</span>
     </div>
   )
 }

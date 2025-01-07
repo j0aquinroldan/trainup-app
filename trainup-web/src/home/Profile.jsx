@@ -3,6 +3,8 @@ import { notification } from 'antd';
 import '../styles/profile.css';
 import { actualizarUsuario } from "../api/Api";
 import { useLogin } from '../context/LoginContext';
+import Form from '../login/Form';
+import ElementForm from '../login/ElementForm';
 
 const Profile = () => {
   const { user, setUser } = useLogin();  
@@ -135,54 +137,41 @@ const Profile = () => {
     }
   };
 
-  const renderField = (fieldName, label) => (
-    <div className='profile-field'>
-      <label htmlFor={fieldName}><strong>{label}:</strong></label>
-      <input
-        type='text'
+  const renderField = (fieldName, label, type, pattern) => (
+    
+      <ElementForm
+        type={type}
         id={fieldName}
         name={fieldName}
-        value={editData[fieldName] || ''}
-        onChange={handleChange}
-        disabled={editField !== fieldName && editField !== null}
-        className={editField === fieldName ? 'editable' : 'disabled'}
-      />
-      {errors[fieldName] && <span className="error-message">{errors[fieldName]}</span>}
-      {showButtons && (
-        <>
-          {editField === fieldName ? (
-            <>
-              <button className='cancel-btn' onClick={handleCancel}>Cancelar</button>
-              <button className='save-btn' onClick={handleSave}>Guardar</button>
-            </>
-          ) : (
-            <button className='edit-btn' onClick={() => handleEditClick(fieldName)}>Editar</button>
-          )}
-        </>
-      )}
-    </div>
-  );
+        initialValue={editData[fieldName] || ''}
+        title={label}
+        required={true}
+        pattern={pattern}
+        errorMessage={`${fieldName} no puede ser vacio`}
+        />
+      );
 
   return (
     <div className='profile-container'>
       <div className='profile-header'>
         <h1>Perfil</h1>
       </div>
-      <div className='profile-card'>
-        <div className='profile-info'>
-          {renderField('username', 'Usuario')}
-          {renderField('password', 'Contraseña')}
-          {renderField('nombre', 'Nombre')}
-          {renderField('edad', 'Edad')}
-          {renderField('fecNacimiento', 'Fecha de Nacimiento')}
-          {renderField('telefono', 'Teléfono')}
-          {renderField('genero', 'Género')}
-          {renderField('altura', 'Altura')}
-          {renderField('peso', 'Peso')}
-          {renderField('objetivo', 'Objetivo')}
-        </div>
+      
+          <Form name='Editar Perfil' btnName='Guardar' handlerSubmit={handleSave}>
+            {renderField('username', 'Usuario', )}
+            {renderField('password', 'Contraseña')}
+            {renderField('nombre', 'Nombre')}
+            {renderField('edad', 'Edad')}
+            {renderField('fecNacimiento', 'Fecha de Nacimiento', 'date')}
+            {renderField('telefono', 'Teléfono','text','[0-9]+')}
+            {renderField('genero', 'Género', 'text', '^(masculino|femenino)$')}
+            {renderField('altura', 'Altura', 'text', '[0-9]+')}
+            {renderField('peso', 'Peso', 'text', '[0-9]+')}
+            {renderField('objetivo', 'Objetivo')} 
+            
+          </Form>
       </div>
-    </div>
+    
   );
 };
 
