@@ -5,6 +5,7 @@ import { actualizarUsuario } from "../api/Api";
 import { useLogin } from '../context/LoginContext';
 import Form from '../login/Form';
 import ElementForm from '../login/ElementForm';
+import Loader from '../utils/Loader';
 
 const Profile = () => {
   const { user, setUser } = useLogin();  
@@ -51,6 +52,10 @@ const Profile = () => {
     }
   }, [user]);
 
+  useEffect(() => {
+    console.log('User data:', user);
+  }, [user]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (editField) {
@@ -66,15 +71,6 @@ const Profile = () => {
         }));
       }
     }
-  };
-  
-  const handleEditClick = (field) => {
-    setEditField(field);
-  };
-
-  const handleCancel = () => {
-    setEditData(profileData);
-    setEditField(null);
   };
 
   const validateFields = () => {
@@ -151,11 +147,17 @@ const Profile = () => {
         />
       );
 
+  console.log(editData['username'])
+
   return (
-    <div className='profile-container'>
-      <div className='profile-header'>
+
+    user?
+      
+    
+    <div className='profile-container '>
+      {/* <div className='profile-header'>
         <h1>Perfil</h1>
-      </div>
+      </div> */}
       
           <Form name='Editar Perfil' btnName='Guardar' handlerSubmit={handleSave}>
             {renderField('username', 'Usuario', )}
@@ -171,7 +173,9 @@ const Profile = () => {
             
           </Form>
       </div>
-    
+     :
+     <Loader/>
+      
   );
 };
 
