@@ -8,7 +8,7 @@ interface EjercicioService {
 
     fun obtenerEjercicioPorId(id: String): Ejercicio
 
-    fun actualizarEjercicio(id: String, ejercicioActualizado: Ejercicio): Ejercicio
+    fun actualizarEjercicio(ejercicioActualizado: Ejercicio): Ejercicio
 
     fun eliminarEjercicio(id: String)
 }

@@ -10,7 +10,7 @@ interface RutinaService {
 
     fun obtenerRutinas(): List<Rutina>
 
-    fun obtenerRutinaPorId(id: String): Rutina?
+    fun obtenerRutinaPorId(id: String): Rutina
 
     fun actualizarRutina(rutinaActualizada: Rutina): Rutina
 
@@ -18,7 +18,7 @@ interface RutinaService {
 
     fun agregarEjercicio(id: String, ejercicio: Ejercicio): Rutina
 
-    fun eliminarEjercicio(id: String, idEj: String): Rutina
+    fun eliminarEjercicio(idRutina: String, idEj: String): Rutina
     fun obtenerRutinasPorCategoria(categoria: String): List<Rutina>
     fun buscarRutinas(nombre: String, dificultad: String?): List<Rutina>
 

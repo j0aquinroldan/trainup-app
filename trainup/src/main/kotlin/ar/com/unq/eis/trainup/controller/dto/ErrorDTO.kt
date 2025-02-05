@@ -1,5 +1,6 @@
 package ar.com.unq.eis.trainup.controller.dto
 
-class ErrorDTO(e: Exception) {
-    var msg: String? = e.message;
+class ErrorDTO(error:String, message:String) {
+    val error = error
+    val message = message
 }

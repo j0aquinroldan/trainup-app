@@ -1,26 +1,27 @@
 package ar.com.unq.eis.trainup.services.impl
 
-import ar.com.unq.eis.trainup.controller.Exceptions.RutinaException
-import ar.com.unq.eis.trainup.controller.Exceptions.UsuarioException
+import ar.com.unq.eis.trainup.controller.Exceptions.RutinaNoSeguidaException
+import ar.com.unq.eis.trainup.controller.Exceptions.UsuarioDuplicadoException
 import ar.com.unq.eis.trainup.dao.RutinaDAO
 import ar.com.unq.eis.trainup.dao.UsuarioDAO
 import ar.com.unq.eis.trainup.model.Rutina
 import ar.com.unq.eis.trainup.model.Usuario
 import ar.com.unq.eis.trainup.services.UsuarioService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.repository.findByIdOrNull
+import org.springframework.dao.DuplicateKeyException
 import org.springframework.stereotype.Service
 
 @Service
-class UsuarioServiceImpl(@Autowired private val usuarioDAO: UsuarioDAO,
-                         @Autowired private val rutinaDAO: RutinaDAO) : UsuarioService {
+class UsuarioServiceImpl(
+    @Autowired private val usuarioDAO: UsuarioDAO,
+    @Autowired private val rutinaDAO: RutinaDAO
+) : UsuarioService {
 
     override fun crearUsuario(usuario: Usuario): Usuario {
-        val username = usuario.username
-        if (usuarioDAO.findByUsername(username) == null) {
-            return usuarioDAO.save(usuario)
-        } else {
-            throw UsuarioException("Ya existe un usuario con username: ${username}")
+        return try {
+            usuarioDAO.save(usuario)
+        } catch (e: DuplicateKeyException) {
+            throw UsuarioDuplicadoException(usuario.username)
         }
     }
 
@@ -29,56 +30,67 @@ class UsuarioServiceImpl(@Autowired private val usuarioDAO: UsuarioDAO,
     }
 
     override fun obtenerUsuarioPorUsername(username: String): Usuario {
-        return usuarioDAO.findByUsername(username) ?: throw UsuarioException("No existe usuario ${username}")
+        return usuarioDAO.findByUsername(username).orElseThrow {
+            NoSuchElementException("No existe usuario ${username}")
+        }
     }
 
     override fun obtenerUsuarioPorID(id: String): Usuario {
-        return usuarioDAO.findByIdOrNull(id) ?: throw UsuarioException("No existe usuario con id ${id}")
+        return usuarioDAO.findById(id).orElseThrow {
+            NoSuchElementException("No existe usuario con id ${id}")
+        }
     }
 
     override fun actualizarUsuario(usuarioActualizado: Usuario): Usuario {
-        if (usuarioDAO.existsById(usuarioActualizado.id!!)) {
-            return usuarioDAO.save(usuarioActualizado)
-        } else {
-            throw UsuarioException("No existe usuario con id ${usuarioActualizado.id!!}")
-        }
 
+        val id = usuarioActualizado.id ?: throw IllegalArgumentException("id no puede ser null")
+        val usuarioExistente =
+            usuarioDAO.findById(id).orElseThrow { NoSuchElementException("No se encontró el usuario con id: $id") }
+
+        usuarioExistente.nombre = usuarioActualizado.nombre
+        usuarioExistente.edad = usuarioActualizado.edad
+        usuarioExistente.fecNacimiento = usuarioActualizado.fecNacimiento
+        usuarioExistente.telefono = usuarioActualizado.telefono
+        usuarioExistente.genero = usuarioActualizado.genero
+        usuarioExistente.altura = usuarioActualizado.altura
+        usuarioExistente.peso = usuarioActualizado.peso
+        usuarioExistente.objetivo = usuarioActualizado.objetivo
+        usuarioExistente.username = usuarioActualizado.username
+
+        return usuarioDAO.save(usuarioExistente)
     }
 
     override fun eliminarUsuario(id: String) {
         if (usuarioDAO.existsById(id)) {
             usuarioDAO.deleteById(id)
         } else {
-            throw UsuarioException("No existe usuario con id ${id}")
+            throw NoSuchElementException("No existe usuario con id ${id}")
         }
-
     }
 
     override fun logIn(username: String, password: String): Usuario {
         return usuarioDAO.findByUsernameAndPassword(username, password)
-            .orElseThrow { UsuarioException("usuario no encontrado") }
+            .orElseThrow { NoSuchElementException("usuario no encontrado") }
     }
 
-    override fun completarRutina(usuarioID:String, rutinaID: String) {
+    override fun completarRutina(usuarioID: String, rutinaID: String) {
         val usuario = this.obtenerUsuarioPorID(usuarioID)
-        val rutina = getRutinaByID(rutinaID)
 
-        try {
-            usuario.completarRutina(rutina)
-            actualizarUsuario(usuario)
-        } catch (e: UsuarioException) {
-            throw UsuarioException(e.message!!)
+        if (!usuario.completarRutina(rutinaID)) {
+            throw RutinaNoSeguidaException(usuario.username, rutinaID)
         }
-
+        usuarioDAO.save(usuario)
     }
 
     private fun getRutinaByID(rutinaID: String): Rutina {
         val rutina =
-            this.rutinaDAO.findByIdOrNull(rutinaID) ?: throw RutinaException("No existe rutina con id ${rutinaID}")
+            this.rutinaDAO.findById(rutinaID).orElseThrow {
+                NoSuchElementException("No existe rutina con id ${rutinaID}")
+            }
         return rutina
     }
 
-    override fun updateFollowRutina(usuarioID: String, rutinaID: String):Usuario {
+    override fun updateFollowRutina(usuarioID: String, rutinaID: String): Usuario {
         val usuario = this.obtenerUsuarioPorID(usuarioID)
         val rutina = this.getRutinaByID(rutinaID)
 
@@ -89,9 +101,8 @@ class UsuarioServiceImpl(@Autowired private val usuarioDAO: UsuarioDAO,
 
     override fun isFollowing(usuarioID: String, rutinaID: String): Boolean {
         val usuario = this.obtenerUsuarioPorID(usuarioID)
-        val rutina = this.getRutinaByID(rutinaID)
 
-        return usuario.isFollowing(rutina)
+        return usuario.isFollowing(rutinaID)
 
     }
 
@@ -99,23 +110,18 @@ class UsuarioServiceImpl(@Autowired private val usuarioDAO: UsuarioDAO,
         val usuario = this.obtenerUsuarioPorID(userId)
         val rutina = this.getRutinaByID(rutinaId)
         val ejercicio = rutina.ejercicios.find { it.id == ejercicioId }
-            ?: throw RutinaException("No existe ejercicio con id ${ejercicioId} en la rutina ${rutinaId}")
+            ?: throw NoSuchElementException("No existe ejercicio con id ${ejercicioId} en la rutina ${rutinaId}")
 
-        rutina.ejercicios.map { if (it.id == ejercicioId){
-            it.completado = true
-        } }
-
-        rutinaDAO.save(rutina)
         usuario.completarEjercicio(rutinaId, ejercicioId)
 
-        this.actualizarUsuario(usuario)
+        usuarioDAO.save(usuario)
     }
 
     override fun agregarRutinaFavorita(idUsuario: String, idRutina: String): Usuario {
         val usuario = this.obtenerUsuarioPorID(idUsuario)
         val rutina = this.getRutinaByID(idRutina)
 
-        usuario.agregarRutinaFavorita(rutina)
+        usuario.agregarONoRutinaFavorita(rutina)
 
         return usuarioDAO.save(usuario)
     }

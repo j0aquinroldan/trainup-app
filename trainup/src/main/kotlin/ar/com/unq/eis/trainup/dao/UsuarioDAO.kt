@@ -9,5 +9,5 @@ import java.util.*
 interface UsuarioDAO: MongoRepository<Usuario, String> {
 
     fun findByUsernameAndPassword(username:String, password:String): Optional<Usuario>
-    fun findByUsername(username: String): Usuario?
+    fun findByUsername(username: String): Optional<Usuario>
 }

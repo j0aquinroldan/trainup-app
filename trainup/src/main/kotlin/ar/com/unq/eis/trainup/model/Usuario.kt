@@ -1,6 +1,5 @@
 package ar.com.unq.eis.trainup.model
 
-import ar.com.unq.eis.trainup.controller.Exceptions.UsuarioException
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
@@ -58,6 +57,7 @@ class Usuario() {
         this.objetivo = objetivo
         this.esAdmin = esAdmin
     }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || javaClass != other.javaClass) return false
@@ -69,27 +69,27 @@ class Usuario() {
         return Objects.hash(id)
     }
 
-    fun completarRutina(rutina: Rutina) {
-        if (!rutinasSeguidas.contains(rutina))throw UsuarioException("El usuario ${this.username} no sigue a rutina id: ${rutina.id}")
+    fun completarRutina(idRutina: String):Boolean {
 
-        rutinasSeguidas.removeIf { it == rutina }
+        val rutina = rutinasSeguidas.find { it.id == idRutina } // debe seguir a la rutina para poder completarla
 
-        if (!rutinasCompletadas.contains(rutina)) {
+        if (rutina == null) return false
+
+        if (!rutinasCompletadas.contains(rutina)) { // en caso de que no la haya completado previamente se agrega a su historial
             rutinasCompletadas.add(rutina)
         }
+
+        return true
     }
 
     fun followUnfollowRutina(rutina: Rutina) {
-        val rutinaExistente = rutinasSeguidas.find { it.id == rutina.id }
-        if (rutinaExistente != null) {
-            rutinasSeguidas.removeIf { it.id == rutina.id }
-        } else {
+        if (!rutinasSeguidas.removeIf { it.id == rutina.id }) {
             rutinasSeguidas.add(rutina)
         }
     }
 
-    fun isFollowing(rutina: Rutina): Boolean {
-        return rutinasSeguidas.any { it.id == rutina.id }
+    fun isFollowing(rutinaID: String): Boolean {
+        return rutinasSeguidas.any { it.id == rutinaID }
     }
 
     fun completarEjercicio(idRutina: String, idEjercicio: String) {
@@ -104,13 +104,9 @@ class Usuario() {
         }
     }
 
-    fun agregarRutinaFavorita(rutina: Rutina) {
-        val rutinaExistente = rutinasFavoritas.find { it.id == rutina.id }
-        if (rutinaExistente == null) {
+    fun agregarONoRutinaFavorita(rutina: Rutina) {
+        if (!rutinasFavoritas.removeIf { it.id == rutina.id }) {
             rutinasFavoritas.add(rutina)
-        } else {
-            rutinasFavoritas.removeIf { it.id == rutina.id }
         }
-
     }
 }
