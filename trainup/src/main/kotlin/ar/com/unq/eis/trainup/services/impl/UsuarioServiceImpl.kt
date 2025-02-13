@@ -109,7 +109,10 @@ class UsuarioServiceImpl(
     override fun completarEjercicio(userId: String, rutinaId: String, ejercicioId: String) {
         val usuario = this.obtenerUsuarioPorID(userId)
         val rutina = this.getRutinaByID(rutinaId)
-        val ejercicio = rutina.ejercicios.find { it.id == ejercicioId }
+
+        if(!usuario.isFollowing(rutinaId)) throw RutinaNoSeguidaException(rutinaId, usuario.username)
+
+        rutina.ejercicios.find { it.id == ejercicioId }
             ?: throw NoSuchElementException("No existe ejercicio con id ${ejercicioId} en la rutina ${rutinaId}")
 
         usuario.completarEjercicio(rutinaId, ejercicioId)

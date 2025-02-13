@@ -27,6 +27,7 @@ class Usuario() {
     var objetivo: String = ""
     var esAdmin: Boolean = false
     var rutinasFavoritas: MutableList<Rutina> = mutableListOf()
+    var ejerciciosCompletados: MutableList<EjercicioCompletado> = mutableListOf()
 
     constructor(
         username: String,
@@ -69,7 +70,7 @@ class Usuario() {
         return Objects.hash(id)
     }
 
-    fun completarRutina(idRutina: String):Boolean {
+    fun completarRutina(idRutina: String): Boolean {
 
         val rutina = rutinasSeguidas.find { it.id == idRutina } // debe seguir a la rutina para poder completarla
 
@@ -93,14 +94,12 @@ class Usuario() {
     }
 
     fun completarEjercicio(idRutina: String, idEjercicio: String) {
-        rutinasSeguidas.map { rutina ->
-            if (rutina.id == idRutina) {
-                rutina.ejercicios.map { ejercicio ->
-                    if (ejercicio.id == idEjercicio) {
-                        ejercicio.completado = true
-                    }
-                }
-            }
+
+        val rutina = rutinasSeguidas.find { it.id == idRutina } // debe seguir a la rutina
+        val ejercicio = rutina?.ejercicios?.find { it.id == idEjercicio } // el ejercicio debe estar en la rutina
+
+        if (ejercicio != null && !ejerciciosCompletados.any { it.ejercicioID == idEjercicio }) {
+            ejerciciosCompletados.add(EjercicioCompletado(idRutina, idEjercicio))
         }
     }
 

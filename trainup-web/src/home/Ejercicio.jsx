@@ -110,23 +110,17 @@ const Ejercicio = ({ updateEjercicio, deleteEjercicio, ejercicio, rutinaID }) =>
 
     const handleCheckboxChange = async () => {
 
-
-        const updatedEjercicio = {
-            ...ejercicio,
-            completado: !completado
-        };
-
         setCompletado(!completado);
 
-        actualizarEjercicio(updatedEjercicio).then(() => {
+        
             completarONoEjercicio(user.id, rutinaID, ejercicio.id)
-        }).catch(() => {
-            notification.error({
-                message: 'Error al actualizar',
-                description: `No se pudo actualizar el estado del ejercicio "${ejercicio.nombre}".`,
-                placement: 'topRight',
-            });
-        })
+        // }).catch(() => {
+        //     notification.error({
+        //         message: 'Error al actualizar',
+        //         description: `No se pudo actualizar el estado del ejercicio "${ejercicio.nombre}".`,
+        //         placement: 'topRight',
+        //     });
+        // })
     };
 
     const showDetailsModal = () => {
