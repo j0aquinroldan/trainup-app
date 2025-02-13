@@ -1,6 +1,5 @@
 package ar.com.unq.eis.trainup.services.impl
 
-import ar.com.unq.eis.trainup.dao.EjercicioDAO
 import ar.com.unq.eis.trainup.dao.RutinaDAO
 import ar.com.unq.eis.trainup.model.Ejercicio
 import ar.com.unq.eis.trainup.model.Rutina
@@ -16,10 +15,6 @@ class RutinaServiceImpl : RutinaService {
 
     @Autowired
     lateinit var rutinaDAO: RutinaDAO
-
-    @Autowired
-    lateinit var ejercicioDAO: EjercicioDAO
-
 
     override fun crearRutina(rutina: Rutina): Rutina {
         return rutinaDAO.save(rutina)
@@ -59,7 +54,7 @@ class RutinaServiceImpl : RutinaService {
 
     override fun agregarEjercicio(id: String, ejercicio: Ejercicio): Rutina {
         val rutina = obtenerRutinaPorId(id)
-        rutina.agregarEjercicio(ejercicioDAO.save(ejercicio))
+        rutina.agregarEjercicio(ejercicio)
         return rutinaDAO.save(rutina)
     }
 

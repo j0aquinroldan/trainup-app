@@ -41,38 +41,19 @@ const agregarRutinaFavorita = (usuarioID, rutinaID) => axios.put(`/usuario/${usu
 * Funciones relacionadas con "Ejercicios"
 */
 
-const crearEjercicio = (body) => axios.post(`/ejercicios`, body);
+
 const agregarEjercicioARutina = (rutinaID, ejercicio) => axios.post(`/rutinas/${rutinaID}/ejercicios`, ejercicio);
 const completarONoEjercicio = (usuarioID, rutinaID, ejercicioID) => axios.put(`/usuario/${usuarioID}/completarONoEjercicio/${rutinaID}/${ejercicioID}`);
 
 const eliminarEjercicioDeRutina = (rutinaID, ejercicioID) => axios.delete(`/rutinas/${rutinaID}/ejercicios/${ejercicioID}`);
-
-
-
-const obtenerEjercicios = async () => {
-  try {
-    const response = await axios.get(`/ejercicios`);
-    return response.data;
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-const obtenerEjercicioPorId = async (id) => {
-  try {
-    const response = await axios.get(`/ejercicios/${id}`);
-    return response.data;
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-const actualizarEjercicio = (ejercicio) => axios.put(`/ejercicios/actualizar`, ejercicio)
 const actualizarEjercicioEnRutina = (id, ejercicio) => axios.put(`/rutinas/${id}/ejercicio/actualizar`, ejercicio)
 
-const eliminarEjercicio = (ejercicioID) => {
-  return axios.delete(`/ejercicios/${ejercicioID}`);
-};
+
+// const actualizarEjercicio = (ejercicio) => axios.put(`/ejercicios/actualizar`, ejercicio)
+
+// const eliminarEjercicio = (ejercicioID) => {
+//   return axios.delete(`/ejercicios/${ejercicioID}`);
+// };
 
 
 /*
@@ -144,11 +125,6 @@ export {
   obtenerRutinaPorId,
   actualizarRutina,
   eliminarRutina,
-  crearEjercicio,
-  obtenerEjercicios,
-  obtenerEjercicioPorId,
-  actualizarEjercicio,
-  eliminarEjercicio,
   crearUsuario,
   obtenerUsuarioPorUsername,
   obtenerUsuarios,

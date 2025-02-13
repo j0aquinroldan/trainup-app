@@ -32,8 +32,7 @@ class BodyEjercicioDTO(
                 series = 1,
                 descansoSegundos = 0,
                 equipo = "",
-                instrucciones = "",
-                completado = false
+                instrucciones = ""
             )
         }
     }

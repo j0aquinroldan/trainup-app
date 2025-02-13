@@ -3,7 +3,7 @@ import { notification, Modal, Input, Form, Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useLogin } from '../context/LoginContext';
-import { crearEjercicio, actualizarEjercicio, eliminarEjercicioDeRutina, actualizarEjercicioEnRutina, actualizarUsuario, completarONoEjercicio } from '../api/Api';
+import { agregarEjercicioARutina, eliminarEjercicioDeRutina, actualizarEjercicioEnRutina, actualizarUsuario, completarONoEjercicio } from '../api/Api';
 import "../styles/ejercicio.css";
 
 
@@ -41,9 +41,9 @@ const Ejercicio = ({ updateEjercicio, deleteEjercicio, ejercicio, rutinaID }) =>
             await form.validateFields();
             setIsUpdating(true);
             actualizarEjercicioEnRutina(rutinaID, editedFields)
-            actualizarEjercicio(editedFields).then(({ data }) => {
-                updateEjercicio(data)
-            });
+            // actualizarEjercicio(editedFields).then(({ data }) => {
+            //     updateEjercicio(data)
+            // });
 
 
             notification.success({
@@ -67,7 +67,7 @@ const Ejercicio = ({ updateEjercicio, deleteEjercicio, ejercicio, rutinaID }) =>
         try {
             await form.validateFields();
             setIsCreating(true);
-            const newExercise = await crearEjercicio(editedFields);
+            const newExercise = await agregarEjercicioARutina(editedFields);
             notification.success({
                 message: '¡Éxito!',
                 description: `El ejercicio "${newExercise.nombre}" ha sido creado exitosamente.`,

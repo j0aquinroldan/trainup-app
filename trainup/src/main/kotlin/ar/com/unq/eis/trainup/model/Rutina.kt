@@ -113,4 +113,5 @@ class Rutina {
 
     override fun hashCode(): Int {
         return Objects.hash(id)}
+
 }
