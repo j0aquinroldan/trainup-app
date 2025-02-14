@@ -22,9 +22,18 @@ class RutinaController(
         return ResponseEntity.status(HttpStatus.CREATED).body(RutinaDTO.desdeModelo(nuevaRutina))
     }
 
+//    @GetMapping
+//    fun obtenerRutinas(): ResponseEntity<Any> {
+//        val rutinas = rutinaService.obtenerRutinas()
+//        return ResponseEntity.ok(rutinas.map(RutinaDTO::desdeModelo))
+//    }
+
     @GetMapping
-    fun obtenerRutinas(): ResponseEntity<Any> {
-        val rutinas = rutinaService.obtenerRutinas()
+    fun obtenerRutinasPaginadas(
+        @RequestParam(required = false, defaultValue = "0") page: Int,
+        @RequestParam(required = false, defaultValue = "9") size: Int
+    ): ResponseEntity<Any> {
+        val rutinas = rutinaService.obtenerRutinasPag(page, size)
         return ResponseEntity.ok(rutinas.map(RutinaDTO::desdeModelo))
     }
 

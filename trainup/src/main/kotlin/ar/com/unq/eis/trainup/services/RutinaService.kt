@@ -10,6 +10,8 @@ interface RutinaService {
 
     fun obtenerRutinas(): List<Rutina>
 
+    fun obtenerRutinasPag(page:Int, size: Int): List<Rutina>
+
     fun obtenerRutinaPorId(id: String): Rutina
 
     fun actualizarRutina(rutinaActualizada: Rutina): Rutina

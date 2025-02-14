@@ -5,6 +5,7 @@ import ar.com.unq.eis.trainup.model.Ejercicio
 import ar.com.unq.eis.trainup.model.Rutina
 import ar.com.unq.eis.trainup.services.RutinaService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import kotlin.jvm.optionals.getOrElse
@@ -22,6 +23,10 @@ class RutinaServiceImpl : RutinaService {
 
     override fun obtenerRutinas(): List<Rutina> {
         return rutinaDAO.findAll()
+    }
+
+    override fun obtenerRutinasPag(page: Int, size: Int): List<Rutina> {
+        return rutinaDAO.findAll(PageRequest.of(page, size)).content
     }
 
     override fun obtenerRutinaPorId(id: String): Rutina {
