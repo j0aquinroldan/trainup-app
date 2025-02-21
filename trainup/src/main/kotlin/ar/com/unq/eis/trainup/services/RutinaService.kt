@@ -2,6 +2,7 @@ package ar.com.unq.eis.trainup.services
 
 import ar.com.unq.eis.trainup.model.Ejercicio
 import ar.com.unq.eis.trainup.model.Rutina
+import org.springframework.data.domain.PageRequest
 
 
 interface RutinaService {
@@ -10,7 +11,7 @@ interface RutinaService {
 
     fun obtenerRutinas(): List<Rutina>
 
-    fun obtenerRutinasPag(page:Int, size: Int): List<Rutina>
+    fun obtenerRutinasPag(pageRequest: PageRequest): Map<String, Any>
 
     fun obtenerRutinaPorId(id: String): Rutina
 

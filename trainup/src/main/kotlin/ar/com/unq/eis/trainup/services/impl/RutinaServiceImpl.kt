@@ -25,8 +25,14 @@ class RutinaServiceImpl : RutinaService {
         return rutinaDAO.findAll()
     }
 
-    override fun obtenerRutinasPag(page: Int, size: Int): List<Rutina> {
-        return rutinaDAO.findAll(PageRequest.of(page, size)).content
+    override fun obtenerRutinasPag(pageRequest: PageRequest): Map<String, Any> {
+        val page = rutinaDAO.findAll(pageRequest)
+        val resp = mapOf(
+            "content" to page.content,
+            "currentPage" to page.number,
+            "totalElements" to page.totalElements
+        )
+        return resp
     }
 
     override fun obtenerRutinaPorId(id: String): Rutina {

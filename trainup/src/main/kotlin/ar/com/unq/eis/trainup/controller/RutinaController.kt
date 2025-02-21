@@ -6,6 +6,7 @@ import ar.com.unq.eis.trainup.controller.dto.EjercicioDTO
 import ar.com.unq.eis.trainup.controller.dto.RutinaDTO
 import ar.com.unq.eis.trainup.services.RutinaService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -33,8 +34,8 @@ class RutinaController(
         @RequestParam(required = false, defaultValue = "0") page: Int,
         @RequestParam(required = false, defaultValue = "9") size: Int
     ): ResponseEntity<Any> {
-        val rutinas = rutinaService.obtenerRutinasPag(page, size)
-        return ResponseEntity.ok(rutinas.map(RutinaDTO::desdeModelo))
+        val rutinas = rutinaService.obtenerRutinasPag(PageRequest.of(page, size))
+        return ResponseEntity.ok(rutinas)
     }
 
     @GetMapping("/{id}")
