@@ -1,5 +1,6 @@
 package ar.com.unq.eis.trainup.controller.dto
 
+import ar.com.unq.eis.trainup.model.Role
 import ar.com.unq.eis.trainup.model.Usuario
 import java.time.LocalDate
 
@@ -18,7 +19,7 @@ class UsuarioDTO(
     var altura: String = "",
     var peso: String = "",
     var objetivo: String = "",
-    var esAdmin: Boolean = false,
+    var rol: Role = Role.USER,
     var rutinasFavoritas: List<RutinaDTO> = mutableListOf()
 ) {
 
@@ -48,7 +49,7 @@ class UsuarioDTO(
                 usuario.altura,
                 usuario.peso,
                 usuario.objetivo,
-                usuario.esAdmin // Mapear esAdmin
+                usuario.rol // Mapear esAdmin
             )
 
             usuarioDto.rutinasFavoritas = usuario.rutinasFavoritas.map { RutinaDTO.desdeModelo(it) }

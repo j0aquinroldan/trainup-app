@@ -3,11 +3,14 @@ package ar.com.unq.eis.trainup.model
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
 import java.time.LocalDate
 import java.util.*
 
 @Document(collection = "usuarios")
-class Usuario() {
+class Usuario():UserDetails {
 
     @Id
     var id: String? = null
@@ -25,7 +28,7 @@ class Usuario() {
     var altura: String = ""
     var peso: String = ""
     var objetivo: String = ""
-    var esAdmin: Boolean = false
+    var rol: Role = Role.USER;
     var rutinasFavoritas: MutableList<Rutina> = mutableListOf()
     var ejerciciosCompletados: MutableList<EjercicioCompletado> = mutableListOf()
 
@@ -40,7 +43,7 @@ class Usuario() {
         altura: String,
         peso: String,
         objetivo: String,
-        esAdmin: Boolean = false
+        rol: Role = Role.USER
     ) : this() {
         require(username.isNotBlank()) { "El username no puede estar vacío" }
         require(password.isNotEmpty()) { "La contraseña no puede estar vacía" }
@@ -56,7 +59,7 @@ class Usuario() {
         this.altura = altura
         this.peso = peso
         this.objetivo = objetivo
-        this.esAdmin = esAdmin
+        this.rol = rol
     }
 
     override fun equals(other: Any?): Boolean {
@@ -68,6 +71,18 @@ class Usuario() {
 
     override fun hashCode(): Int {
         return Objects.hash(id)
+    }
+
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
+        return mutableListOf(SimpleGrantedAuthority(rol.name))
+    }
+
+    override fun getPassword(): String {
+        return this.password
+    }
+
+    override fun getUsername(): String {
+        return this.username
     }
 
     fun completarRutina(idRutina: String): Boolean {
