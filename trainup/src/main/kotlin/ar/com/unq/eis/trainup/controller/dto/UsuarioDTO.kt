@@ -24,7 +24,7 @@ class UsuarioDTO(
 ) {
 
     fun aModelo(): Usuario {
-        val usuario = Usuario(username, password, nombre, edad!!, fecNacimiento!!, telefono, genero, altura, peso, objetivo, esAdmin) // Incluir esAdmin
+        val usuario = Usuario(username, password, nombre, edad!!, fecNacimiento!!, telefono, genero, altura, peso, objetivo, rol) // Incluir esAdmin
         usuario.id = id
         usuario.rutinasSeguidas.addAll(rutinasSeguidas.map { it.aModelo() })
         usuario.rutinasCompletadas.addAll(rutinasCompletadas.map { it.aModelo() })

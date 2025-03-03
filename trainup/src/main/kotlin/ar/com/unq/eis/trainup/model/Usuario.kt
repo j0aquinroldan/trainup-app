@@ -16,8 +16,8 @@ class Usuario():UserDetails {
     var id: String? = null
 
     @Indexed(unique = true)
-    var username: String = ""
-    var password: String = ""
+    private var username: String = ""
+    private var password: String = ""
     var rutinasSeguidas: MutableList<Rutina> = mutableListOf()
     var rutinasCompletadas: MutableList<Rutina> = mutableListOf()
     var nombre: String = ""
@@ -83,6 +83,14 @@ class Usuario():UserDetails {
 
     override fun getUsername(): String {
         return this.username
+    }
+
+    fun setUsername(username:String){
+        this.username = username
+    }
+
+    fun setPassword(password:String){
+        this.password = password
     }
 
     fun completarRutina(idRutina: String): Boolean {

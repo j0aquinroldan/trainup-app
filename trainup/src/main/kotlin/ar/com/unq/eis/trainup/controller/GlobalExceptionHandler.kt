@@ -63,7 +63,7 @@ class GlobalExceptionHandler {
     fun handleGenericException(e: Exception): ResponseEntity<ErrorDTO> {
         val response = ErrorDTO(
             error = "Internal server error",
-            message = "An unexpected error occurred"
+            message = e.message!!
         )
         return ResponseEntity(response, HttpStatus.INTERNAL_SERVER_ERROR)
     }
