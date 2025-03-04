@@ -7,8 +7,10 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.HttpHeaders
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContext
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
@@ -37,20 +39,27 @@ class JwtAuthenticationFilter(
         }
 
         val username = jwtService.getUsernameFromToken(token)
+        val rol = jwtService.getRoleFromToken(token)
+
 
         if (username != null && SecurityContextHolder.getContext().authentication == null) {
+
             val userDetails = userDetailsService.loadUserByUsername(username)
+            val updatedUser :User
 
             if (jwtService.isTokenValid(token, userDetails)) {
+
+                updatedUser = User(
+                    userDetails.username, userDetails.password, listOf(SimpleGrantedAuthority("ROLE_$rol"))
+                )
+
                 val userAuth = UsernamePasswordAuthenticationToken(
-                    userDetails, null, userDetails.authorities
+                    updatedUser, null, updatedUser.authorities
                 )
                 userAuth.details = WebAuthenticationDetailsSource().buildDetails(request)
                 SecurityContextHolder.getContext().authentication = userAuth
             }
         }
-
-
 
         return filterChain.doFilter(request, response)
     }

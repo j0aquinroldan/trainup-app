@@ -17,7 +17,7 @@ class RutinaController(
     @Autowired private val rutinaService: RutinaService
 ) {
 
-    @PostMapping
+    @PostMapping("/admin/crear")
     fun crearRutina(@RequestBody bodyRutinaDTO: BodyRutinaDTO): ResponseEntity<Any> {
         val nuevaRutina = rutinaService.crearRutina(bodyRutinaDTO.aModelo())
         return ResponseEntity.status(HttpStatus.CREATED).body(RutinaDTO.desdeModelo(nuevaRutina))
@@ -44,26 +44,26 @@ class RutinaController(
         return ResponseEntity.ok(RutinaDTO.desdeModelo(rutina))
     }
 
-    @PutMapping
+    @PutMapping("/admin")
     fun actualizarRutina(@RequestBody bodyRutinaDTO: BodyRutinaDTO): ResponseEntity<Any> {
 
         val rutinaActualizada = rutinaService.actualizarRutina(bodyRutinaDTO.aModelo())
         return ResponseEntity.ok(RutinaDTO.desdeModelo(rutinaActualizada))
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/{id}")
     fun eliminarRutina(@PathVariable id: String): ResponseEntity<Any> {
         rutinaService.eliminarRutina(id)
         return ResponseEntity.noContent().build()
     }
 
-    @PostMapping("/{id}/ejercicios")
+    @PostMapping("/admin/{id}/ejercicios")
     fun agregarEjercicio(@PathVariable id: String, @RequestBody ejercicio: BodyEjercicioDTO): ResponseEntity<Any> {
         val rutinaActualizada = rutinaService.agregarEjercicio(id, ejercicio.aModelo())
         return ResponseEntity.ok(RutinaDTO.desdeModelo(rutinaActualizada))
     }
 
-    @PutMapping("/{id}/ejercicio/actualizar")
+    @PutMapping("/admin/{id}/ejercicio/actualizar")
     fun actualizarEjercicioEnRutina(
         @PathVariable id: String,
         @RequestBody ejercicio: EjercicioDTO
@@ -72,7 +72,7 @@ class RutinaController(
         return ResponseEntity.ok(RutinaDTO.desdeModelo(rutinaActualizada))
     }
 
-    @DeleteMapping("/{id}/ejercicios/{idEj}")
+    @DeleteMapping("/admin/{id}/ejercicios/{idEj}")
     fun eliminarEjercicio(@PathVariable id: String, @PathVariable idEj: String): ResponseEntity<Any> {
         val rutinaActualizada = rutinaService.eliminarEjercicio(id, idEj)
         return ResponseEntity.ok(RutinaDTO.desdeModelo(rutinaActualizada))

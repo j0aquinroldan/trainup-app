@@ -23,6 +23,8 @@ class SecurityConfig(
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http.authorizeHttpRequests { auth ->
             auth.requestMatchers("api/auth/**").permitAll()
+                .requestMatchers("api/rutinas/admin/**").hasRole("ADMIN")
+                .requestMatchers("api/usuario/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
         }
             .csrf { it.disable() }
