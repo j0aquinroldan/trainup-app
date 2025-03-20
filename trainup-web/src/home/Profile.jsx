@@ -53,7 +53,7 @@ const Profile = () => {
   }, [user]);
 
   useEffect(() => {
-    console.log('User data:', user);
+    // console.log('User data:', user);
   }, [user]);
 
   const handleChange = (e) => {

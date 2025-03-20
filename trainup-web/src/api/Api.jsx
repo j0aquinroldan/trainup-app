@@ -56,18 +56,38 @@ const actualizarEjercicioEnRutina = (id, ejercicio) => axios.put(`/rutinas/${id}
 // };
 
 
+
 /*
- * Funciones relacionadas con "Usuarios"
+ * Funciones de auth
  */
+
+const logearUsuario = (username, password) => {
+  
+  return axios.post('/auth/login', { username, password })
+}
 
 const crearUsuario = async (usuarioDTO) => {
   try {
-    const response = await axios.post(`/usuario`, usuarioDTO);
+    const response = await axios.post(`/auth/register`, usuarioDTO);
     return response.data;
   } catch (error) {
     handleError(error);
   }
 };
+
+/*
+ * Funciones relacionadas con "Usuarios"
+ */
+
+export const obtenerUsuarioPorToken = async() =>{
+  try {
+    const response = await axios.get(`/usuario/me`);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+}
+
 
 const obtenerUsuarioPorUsername = async (username) => {
   try {
@@ -100,9 +120,6 @@ const eliminarUsuario = async (id) => {
   }
 };
 
-const logearUsuario = (username, password) => {
-  return axios.post('/usuario/login', { username, password });
-}
 
 const completarRutina = (userId, rutinaId) => {
   axios.post(`/usuario/completarRutina/${userId}/${rutinaId}`).then((response) => response.data).catch(handleError);

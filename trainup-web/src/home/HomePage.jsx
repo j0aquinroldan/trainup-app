@@ -8,6 +8,8 @@ import Favoritas from './Favoritas';
 const HomePage = () => {
   const { user } = useLogin();
 
+  console.log(`homeuser ${user}`)
+
   if (!user || !user.rutinasSeguidas) {
     return (
       <div className="home-container">
@@ -16,6 +18,8 @@ const HomePage = () => {
       </div>
     );
   }
+
+  
 
   return (
     <div className="home-container">

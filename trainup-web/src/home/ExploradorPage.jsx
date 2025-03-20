@@ -18,8 +18,6 @@ const ExploradorPage = () => {
 
           const currentPage = backendPage+1;
 
-          console.log(totalElements);
-
           return rutinas && rutinas.length > 0 ? (
             <>
               {rutinas.map((rutina, index) => (
