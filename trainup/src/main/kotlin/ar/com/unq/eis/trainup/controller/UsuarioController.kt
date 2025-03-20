@@ -7,6 +7,8 @@ import ar.com.unq.eis.trainup.services.UsuarioService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -33,6 +35,14 @@ class UsuarioController(
     fun obtenerUsuarioPorID(@PathVariable id: String): ResponseEntity<*> {
         val usuario = usuarioService.obtenerUsuarioPorID(id)
         return ResponseEntity.ok(UsuarioDTO.desdeModelo(usuario))
+    }
+
+    @GetMapping("/me")
+    fun getCurrentUser(@AuthenticationPrincipal userDetails: UserDetails):ResponseEntity<UsuarioDTO>{
+
+        val user = UsuarioDTO.desdeModelo(this.usuarioService.obtenerUsuarioPorUsername(userDetails.username))
+
+        return ResponseEntity.ok(user)
     }
 
     @GetMapping

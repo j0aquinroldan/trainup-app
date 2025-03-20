@@ -6,6 +6,9 @@ import ar.com.unq.eis.trainup.controller.dto.UsuarioDTO
 import ar.com.unq.eis.trainup.services.AuthService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -29,4 +32,6 @@ class AuthController(
     fun register(@RequestBody usuarioDTO: UsuarioDTO): ResponseEntity<AuthResponse> {
         return ResponseEntity.ok(authService.register(usuarioDTO.aModelo()))
     }
+
+
 }
