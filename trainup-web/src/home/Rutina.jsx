@@ -83,7 +83,7 @@ const Rutina = () => {
                         <p className={'category ' + `${dificultad.toLowerCase()}`}>{dificultad}</p>
                     </div>
 
-                    {user.esAdmin ? (
+                    {user.rol ==="ADMIN" ? (
                         <Button onClick={handleCreateExercise} type="primary">
                             Crear Ejercicio
                         </Button>

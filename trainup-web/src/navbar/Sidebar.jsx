@@ -17,7 +17,7 @@ const Sidebar = () => {
         <div className={`sidebar ${showSidebar ? `s-show` : `s-noshow`}`}>
             
             <ul>
-                {user?.esAdmin && (
+                    {user?.rol === "ADMIN" && (
                     <li>
                         <button className='sidebar-btn' onClick={() => navigate('/es/home/crear/rutina')}>
                             <FontAwesomeIcon icon={faPlus} className="icon" /> <span>Nueva Rutina</span>

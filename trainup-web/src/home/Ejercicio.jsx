@@ -147,7 +147,7 @@ const Ejercicio = ({ updateEjercicio, deleteEjercicio, ejercicio, rutinaID }) =>
                 </div>
             )}
             <div className="exercise-footer">
-                {ejercicio && user.esAdmin ? (
+                {ejercicio && user.rol ==="ADMIN" ? (
                     <>
                         <FontAwesomeIcon icon={faPenToSquare} className="icon edit-icon" onClick={showEditModal} />
                         <FontAwesomeIcon icon={faTrash} className="icon edit-icon" onClick={() => setIsOpen(true)} />
@@ -277,7 +277,7 @@ const Ejercicio = ({ updateEjercicio, deleteEjercicio, ejercicio, rutinaID }) =>
                 <p><strong>Instrucciones:</strong> {ejercicio.instrucciones}</p>
 
                 <div className="exercise-footer">
-                    {ejercicio && user.esAdmin ? (
+                    {ejercicio && user.rol === "ADMIN" ? (
                         <>
                             <FontAwesomeIcon icon={faPenToSquare} className="icon edit-icon" onClick={showEditModal} />
                             <FontAwesomeIcon icon={faTrash} className="icon edit-icon" onClick={() => setIsOpen(true)} />
