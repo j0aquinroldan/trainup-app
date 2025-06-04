@@ -2,6 +2,7 @@ package ar.com.unq.eis.trainup.configuration
 
 import ar.com.unq.eis.trainup.dao.UsuarioDAO
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Lazy
@@ -26,9 +27,11 @@ class AppConfiguration(
     @Lazy
     private lateinit var usuarioDAO: UsuarioDAO
 
+    @Value("\${spring.data.mongodb.uri}")
+    private lateinit var mongoUri: String
+
     @Bean
     fun mongoTemplate(): MongoTemplate {
-        val mongoUri = "mongodb+srv://root:root@cluster0.u8rkuaa.mongodb.net/trainup"
         return MongoTemplate(SimpleMongoClientDatabaseFactory(mongoUri))
     }
 
