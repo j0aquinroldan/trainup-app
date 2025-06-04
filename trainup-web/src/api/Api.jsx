@@ -127,12 +127,12 @@ const completarRutina = (userId, rutinaId) => {
   axios.post(`/usuario/completarRutina/${userId}/${rutinaId}`).then((response) => response.data).catch(handleError);
 };
 
-export const isFollowing = (rutinaID) => {
-  return axios.get(`/usuario/isFollowing/${localStorage.getItem('id')}/${rutinaID}`);
+export const isFollowing = (userId, rutinaID) => {
+  return axios.get(`/usuario/isFollowing/${userId}/${rutinaID}`);
 }
 
-export const seguirRutina = (rutinaID) => {
-  return axios.put(`/usuario/follow/${localStorage.getItem('id')}/${rutinaID}`);
+export const seguirRutina = (userId, rutinaID) => {
+  return axios.put(`/usuario/follow/${userId}/${rutinaID}`);
 }
 
 
