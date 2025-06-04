@@ -62,6 +62,8 @@ const actualizarEjercicioEnRutina = (id, ejercicio) => axios.put(`/rutinas/${id}
  */
 
 const logearUsuario = (username, password) => {
+
+  delete axios.defaults.headers.common["Authorization"]
   
   return axios.post('/auth/login', { username, password })
 }
