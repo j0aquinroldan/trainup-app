@@ -77,7 +77,7 @@ const Rutina = () => {
                     <img src={imgSrc} className="rutina-img" alt={`imagen de rutina ${nombre}`} />
                 )}
                     <h1 className="rutina-title">{nombre}</h1>
-                    <h1 >{descripcion}</h1>
+                    <h2 className='rutina-subtitle' >{descripcion}</h2>
                     <div className="card-footer">
                         <p className='category'>{categoria}</p>
                         <p className={'category ' + `${dificultad.toLowerCase()}`}>{dificultad}</p>
@@ -97,7 +97,7 @@ const Rutina = () => {
 
             
 
-            <div className='container-boxinfo overflow-y-auto'>
+            <div className='container-boxinfo overflow-y-auto padding-r-s'>
                 <h1 className="rutina-title">Ejercicios</h1>
                 {listaDeEjercicios.map(ejercicio => (
                     <Ejercicio key={ejercicio.id} updateEjercicio={updateEjercicio} deleteEjercicio={deleteEjercicio} ejercicio={ejercicio} rutinaID={rutinaID} />

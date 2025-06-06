@@ -76,3 +76,7 @@
 .overflow-y-auto{
     overflow-y: auto;
 }
+
+.padding-r-s {
+    padding-right: 1rem;
+}

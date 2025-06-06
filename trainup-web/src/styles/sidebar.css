@@ -13,9 +13,9 @@
     overflow: hidden;
 }
 
-.sidebar:hover {
+/* .sidebar:hover {
     width: 20%;
-}
+} */
 
 .sidebar ul {
     display: flex;
