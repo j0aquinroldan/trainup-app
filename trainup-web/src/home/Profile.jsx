@@ -133,7 +133,7 @@ const Profile = () => {
     }
   };
 
-  const renderField = (fieldName, label, type, pattern) => (
+  const renderField = (fieldName, label, type, pattern, required=false) => (
     
       <ElementForm
         type={type}
@@ -141,48 +141,34 @@ const Profile = () => {
         name={fieldName}
         initialValue={editData[fieldName] || ''}
         title={label}
-        required={true}
+        required={required}
         pattern={pattern}
         errorMessage={`${fieldName} no puede ser vacio`}
         />
       );
 
-  console.log(editData['username'])
 
   return (
-
     user?
-      
     
     <div className='profile-container '>
-      {/* <div className='profile-header'>
-        <h1>Perfil</h1>
-      </div> */}
       
           <Form name='Editar Perfil' btnName='Guardar' handlerSubmit={handleSave}>
-            {renderField('username', 'Usuario', )}
-            {/* {renderField('password', 'Contraseña')} */}
-          <div className='default-box form-element'>
-            <button className='  primary-textbar form-element input'>
-              Cambiar contraseña
-            </button>
-            </div>
-          
-            {renderField('nombre', 'Nombre')}
-            {renderField('edad', 'Edad')}
+            {renderField('username', 'Usuario', 'text', undefined, true)}
+            {renderField('nombre', 'Nombre', 'text', undefined, true)}
             {renderField('fecNacimiento', 'Fecha de Nacimiento', 'date')}
             {renderField('telefono', 'Teléfono','text','[0-9]+')}
             {renderField('genero', 'Género', 'text', '^(masculino|femenino)$')}
             {renderField('altura', 'Altura (en cm)', 'text', '[0-9]+')}
             {renderField('peso', 'Peso (en kg)', 'text', '[0-9]+')}
             {renderField('objetivo', 'Objetivo')} 
-          
+            <button type='button' className=' default-btn-2 mb-1'>
+              Cambiar contraseña
+            </button>
           </Form>
-          
       </div>
      :
      <Loader/>
-      
   );
 };
 

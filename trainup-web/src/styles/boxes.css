@@ -92,8 +92,8 @@
     flex-wrap: wrap;
     width: 50%;
     padding: 0;
-    margin-bottom: 1rem;
-    gap:0.5rem
+    margin-bottom: 0.5rem;
+    /* gap:0.5rem */
 }
 
 .form-element:nth-child(2n){

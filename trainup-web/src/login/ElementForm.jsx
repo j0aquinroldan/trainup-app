@@ -17,12 +17,6 @@ const ElementForm = ({ name, type, id, title, setText, initialValue, required, p
     const value = e.target.value;
     setValueText(value);
     setText(value);
-
-    // if (required && value.trim() === '') {
-    //   setError(`El campo ${name} no puede estar vacío`);
-    // } else {
-    //   setError('');
-    // }
   };
 
 
