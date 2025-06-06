@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom'
 const TemplatePage = () => {
   return (
     <div className='temp-init'>
-        <div className='temp-navbar'></div>
+        {/* <div className='temp-navbar'></div> */}
         <div className='temp-body'>
             <div className='temp-sidebar'></div>
             <div className='temp-content'>
