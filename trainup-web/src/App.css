@@ -7,13 +7,19 @@
   font-family: 'Poppins', sans-serif; 
 }
 
+#root {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #000000, #030058);
+}
+
+
 body {
-  background: linear-gradient(135deg, #000000, #030058); 
+  /* background: linear-gradient(135deg, #000000, #030058);  */
   font-family: 'Poppins', sans-serif; 
   color: #f1f1f1;
   margin: 0;
   padding: 0;
-  max-height: 100vh;
+  overflow-x: hidden;
 }
 
 .flx {
