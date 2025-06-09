@@ -47,6 +47,11 @@
     text-align: center;
 }
 
+.ta-left {
+    width: 100%;
+  text-align: left;
+}
+
 .bold {
     font-weight: bold;
 }
@@ -54,6 +59,10 @@
 .center {
     justify-content: center;
     align-items: center;
+}
+
+.flex-column{
+    flex-direction: column;
 }
 
 .max-size-vh {
