@@ -7,16 +7,30 @@
   font-family: 'Poppins', sans-serif; 
 }
 
+:root{
+  --main-bg: linear-gradient(135deg, #000000, #030058);
+  --card-bg: rgba(255,255,255, 0.13);
+  --primary-font-colour:#f1f1f1;
+  --secondary-font-colour:#2f2d6a;
+  --invalid-input-colour: #fc2b2b;
+  --primary-button-bg: #1d41b9;
+  --primary-button-hover-bg: #2f2d6a;
+  --secondary-button-bg: #e0e0e0;
+  --secondary-button-hover-bg: #c9c9c9;
+  --secondary-button-text-colour: #1d1d1d;  
+  --placeholder-colour: rgba(255, 255, 255, 0.5);
+}
+
 #root {
   min-height: 100vh;
-  background: linear-gradient(135deg, #000000, #030058);
+  background: var(--main-bg);
 }
 
 
 body {
   /* background: linear-gradient(135deg, #000000, #030058);  */
   font-family: 'Poppins', sans-serif; 
-  color: #f1f1f1;
+  color: var(--primary-font-colour);
   margin: 0;
   padding: 0;
   overflow-x: hidden;

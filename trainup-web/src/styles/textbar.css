@@ -1,7 +1,7 @@
 .primary-textbar {
     border: 1px solid #2f2d6a;
-    color: #2f2d6a;
-    background-color: #e0e0e0;
+    /* color: #2f2d6a; */
+    background-color: var(--card-bg);
     padding: 0.8rem;
     border-radius: 1rem;
     margin: 1rem 0;
@@ -11,31 +11,39 @@
     box-sizing: border-box; 
 }
 
+.primary-textbar::placeholder {
+    color: var(--placeholder-colour);
+}
+
 .primary-textbar:focus {
     outline: none;
     border-color: #007bff;
     box-shadow: 0 0 0.5rem rgba(0, 123, 255, 0.5);
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
 .required-icon {
-    color: red;
+    color: var(--invalid-input-colour);
     margin-left: 0.5rem;
     font-size: 0.9rem; 
 }
 
 input:invalid {
-    border-color: #e74c3c!important;
-    box-shadow: 0 0 0.5rem rgba(231, 76, 60, 0.5)!important;
+    border-color: var(--invalid-input-colour)!important;
+    box-shadow: 0 0 0.5rem rgba(255, 0, 0, 0.5)!important;
 }
 
 .error-input:focus {
-    border-color: #e74c3c;
-    box-shadow: 0 0 0.5rem rgba(231, 76, 60, 0.5);
+    border-color: var(--invalid-input-colour);
+    box-shadow: 0 0 0.5rem rgba(255, 0, 0, 0.5);
 }
 
 .error-message {
     /* color: #e74c3c; */
-    color: #e0e0e0;
+    color: rgba(255, 255, 255, 0);
     font-size: 0.875rem;
     width: 95%;
     /* margin-left: 0.625rem; */
@@ -44,7 +52,7 @@ input:invalid {
 
 input:invalid ~ .error-message{
     /* display: block; */
-    color: #e74c3c;
+    color: var(--invalid-input-colour);
 }
 
 .label-container {

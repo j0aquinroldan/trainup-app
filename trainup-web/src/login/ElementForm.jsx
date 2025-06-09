@@ -23,7 +23,7 @@ const ElementForm = ({ name, type, id, title, setText, initialValue, required, p
 
   return (
     <div className='default-box form-element'>
-      <label htmlFor={type} className='bold'>{title}</label>
+      <label htmlFor={type} >{title}</label>
       <input
         className={`primary-textbar`}
         type={type}

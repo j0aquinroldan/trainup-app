@@ -23,7 +23,7 @@ const HomePage = () => {
 
   return (
     <div className="home-container">
-      <h1 className="home-title">Bienvenido a tu página de inicio</h1>
+      <h1 className="home-title">Inicio</h1>
       {/* <p className="home-subtitle">Aquí encontrarás las rutinas que sigues. ¡Explora y mantente activo!</p> */}
       <div className="list-rutinas-container gap-m">
         <h1 className="ta-left">Seguidas</h1>

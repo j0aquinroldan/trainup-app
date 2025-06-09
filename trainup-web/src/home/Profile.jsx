@@ -162,7 +162,7 @@ const Profile = () => {
             {renderField('altura', 'Altura (en cm)', 'text', '[0-9]+')}
             {renderField('peso', 'Peso (en kg)', 'text', '[0-9]+')}
             {renderField('objetivo', 'Objetivo')} 
-            <button type='button' className=' default-btn-2 mb-1'>
+            <button type='button' className=' default-btn-3 mb-1'>
               Cambiar contraseña
             </button>
           </Form>

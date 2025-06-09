@@ -11,9 +11,9 @@
 }
 
 .secondary-box {
-    background-color: #e0e0e0;
-    /* background-color: rgba(255,255,255, 0.13); */
-    color: #2f2d6a;
+    /* background-color: #e0e0e0; */
+    background-color: var(--card-bg);
+    color: var(--primary-font-colour);
 }
 
 .category-box {
