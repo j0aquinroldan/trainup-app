@@ -9,7 +9,7 @@
 
 :root{
   --main-bg: linear-gradient(135deg, #000000, #030058);
-  --card-bg: rgba(255,255,255, 0.13);
+  --card-bg: rgba(255,255,255, 0.1);
   --primary-font-colour:#f1f1f1;
   --secondary-font-colour:#2f2d6a;
   --invalid-input-colour: #fc2b2b;
