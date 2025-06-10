@@ -19,6 +19,8 @@
   --secondary-button-hover-bg: #c9c9c9;
   --secondary-button-text-colour: #1d1d1d;  
   --placeholder-colour: rgba(255, 255, 255, 0.5);
+  --lilac: #8783f1;
+  --lilac-hover: #a8a4f2;
 }
 
 #root {

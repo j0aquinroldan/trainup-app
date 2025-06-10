@@ -28,13 +28,21 @@ const Ejercicio = ({
   const [isCreating, setIsCreating] = useState(false);
   const [completado, setCompletado] = useState(ejercicio.completado);
 
-  const showEditModal = () => {
+  const showEditModal = (e) => {
+    e.stopPropagation()
     setEditedFields(ejercicio);
     setIsModalVisible(true);
   };
 
-  const handleCancel = () => {
+  const showDeleteModal = (e) => {
+    e.stopPropagation();
+    setIsOpen(true);
+  };
+
+  const handleCancel = (e) => {
+    e.stopPropagation()
     setIsModalVisible(false);
+    setIsOpen(false);
   };
 
   const handleFieldChange = (changedValues) => {
@@ -92,7 +100,8 @@ const Ejercicio = ({
     }
   };
 
-  const handleDeleteExercise = () => {
+  const handleDeleteExercise = (e) => {
+    e.stopPropagation()
     eliminarEjercicioDeRutina(rutinaID, ejercicio.id)
       .then(() => {
         deleteEjercicio(ejercicio);
@@ -133,17 +142,14 @@ const Ejercicio = ({
   };
 
   const showDetailsModal = () => {
-    setIsDetailsModalVisible(true);
+    if (!isDetailsModalVisible) {
+    setIsDetailsModalVisible(true);}
   };
 
   return (
     <div
       className="exercise-container"
-      onClick={() => {
-        if (!isDetailsModalVisible) {
-          showDetailsModal();
-        }
-      }}
+      onClick={showDetailsModal}
     >
       <div className="exercise-header">
         <h3>{ejercicio ? ejercicio.nombre : "Crear Nuevo Ejercicio"}</h3>
@@ -179,7 +185,7 @@ const Ejercicio = ({
             <FontAwesomeIcon
               icon={faTrash}
               className="icon edit-icon"
-              onClick={() => setIsOpen(true)}
+              onClick={showDeleteModal}
             />
           </>
         ) : (
@@ -208,6 +214,9 @@ const Ejercicio = ({
         onOk={ejercicio ? handleSaveChanges : handleCreateExercise}
         confirmLoading={isUpdating || isCreating}
         okButtonProps={{ disabled: isFormInvalid() }}
+        modalRender={(modal) => (
+        <div onClick={(e) => e.stopPropagation()}>{modal}</div>
+        )}
       >
         <Form
           layout="vertical"
@@ -312,9 +321,12 @@ const Ejercicio = ({
         title="Confirmar acción"
         open={isOpen}
         onOk={handleDeleteExercise}
-        onCancel={() => setIsOpen(false)}
+        onCancel={handleCancel}
         okText="Eliminar"
         cancelText="Cancelar"
+        modalRender={(modal) => (
+        <div onClick={(e) => e.stopPropagation()}>{modal}</div>
+        )}
       >
         <p>¿Estás seguro de que deseas eliminar el ejercicio?</p>
       </Modal>
@@ -324,6 +336,9 @@ const Ejercicio = ({
         onCancel={() => setIsDetailsModalVisible(false)}
         footer={null}
         className="exercise-details-modal"
+        modalRender={(modal) => (
+        <div onClick={(e) => e.stopPropagation()}>{modal}</div>
+        )}
       >
         <p>
           <strong>Descripcion:</strong> {ejercicio.descripcion}
@@ -361,7 +376,7 @@ const Ejercicio = ({
               <FontAwesomeIcon
                 icon={faTrash}
                 className="icon edit-icon"
-                onClick={() => setIsOpen(true)}
+                onClick={showDeleteModal}
               />
             </>
           ) : (
