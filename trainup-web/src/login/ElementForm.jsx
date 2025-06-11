@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
-const ElementForm = ({ name, type, id, title, setText, initialValue, required, pattern, errorMessage }) => {
+const ElementForm = ({ name, type, id, title, setText, initialValue, required, pattern, min, errorMessage,  }) => {
 
   const [valueText, setValueText] = useState('')
-  const [error, setError] = useState('');
-
 
   useEffect(() => {
   
@@ -19,11 +17,9 @@ const ElementForm = ({ name, type, id, title, setText, initialValue, required, p
     setText(value);
   };
 
-
-
   return (
     <div className='default-box form-element'>
-      <label htmlFor={type} >{title}</label>
+      <label htmlFor={type} >{title} {required && <span style={{ color: 'red' }}> *</span>}</label>
       <input
         className={`primary-textbar`}
         type={type}
@@ -31,11 +27,12 @@ const ElementForm = ({ name, type, id, title, setText, initialValue, required, p
         value={valueText}
         placeholder={name}
         id={id}
-        errorMessage={errorMessage}
         pattern={pattern}
+        min={min}
         required={required}
-        onChange={handlerChange} />
-      <span className='error-message'>{errorMessage}</span>
+        onChange={handlerChange} 
+        />
+      {/* <span className='error-message'>{errorMessage}</span> */}
     </div>
   )
 }

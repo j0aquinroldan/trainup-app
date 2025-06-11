@@ -7,7 +7,6 @@ const Form = ({children, name, btnName, handlerSubmit}) => {
   return (
     <div className='secondary-box form-container' >
       <h2 className='ta-center'>{name}</h2>
-      {/* <form className='flx column-box gap-s jc-center' onSubmit={handlerSubmit} action=""> */}
         <form  onSubmit={handlerSubmit} action="">
         <div className='form-info'>
             {children}

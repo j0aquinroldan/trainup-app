@@ -133,7 +133,7 @@ const Profile = () => {
     }
   };
 
-  const renderField = (fieldName, label, type, pattern, required=false) => (
+  const renderField = (fieldName, label, type, pattern, required=false, min) => (
     
       <ElementForm
         type={type}
@@ -143,6 +143,7 @@ const Profile = () => {
         title={label}
         required={required}
         pattern={pattern}
+        min={min}
         errorMessage={`${fieldName} no puede ser vacio`}
         />
       );
@@ -159,8 +160,8 @@ const Profile = () => {
             {renderField('fecNacimiento', 'Fecha de Nacimiento', 'date')}
             {renderField('telefono', 'Teléfono','text','[0-9]+')}
             {renderField('genero', 'Género', 'text', '^(masculino|femenino)$')}
-            {renderField('altura', 'Altura (en cm)', 'text', '[0-9]+')}
-            {renderField('peso', 'Peso (en kg)', 'text', '[0-9]+')}
+            {renderField('altura', 'Altura (en cm)', 'number', '[0-9]+',undefined,1)}
+            {renderField('peso', 'Peso (en kg)', 'number', '[0-9]+',undefined)}
             {renderField('objetivo', 'Objetivo')} 
             <button type='button' className=' default-btn-3 mb-1'>
               Cambiar contraseña
