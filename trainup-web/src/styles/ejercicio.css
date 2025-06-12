@@ -123,13 +123,13 @@
 .edit-icon:hover {
     color: var(--lilac-hover);
 }
-
+/* 
 .exercise-details-modal .ant-modal-content{
     background-color: #100f36;
     color: #bdc9d4;
-}
+} */
 
-.exercise-details-modal .ant-modal-header {
+/* .exercise-details-modal .ant-modal-header {
     background-color: #100f36;
     
     border-bottom: 1px solid #8783f1;
@@ -141,7 +141,7 @@
 
 .exercise-details-modal .ant-modal-close:hover {
     color: #bdc9d4;
-}
+} */
 
 @media (max-width: 768px) {
     .exercise-details p {

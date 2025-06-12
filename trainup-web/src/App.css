@@ -53,6 +53,81 @@ p {
   margin: 0 0 1rem 0;
 }
 
+.ant-modal{
+  top: 40px;
+}
+
+.custom-modal .ant-modal-content{
+    background-color: #100f36;
+    color: #bdc9d4;
+}
+
+.custom-modal .ant-modal-header {
+    background-color: #100f36;
+    
+    border-bottom: 1px solid #8783f1;
+}
+
+.custom-modal .ant-modal-title,.custom-modal .ant-modal-close {
+    color: #bdc9d4;
+}
+
+.custom-modal .ant-modal-close:hover {
+    color: #bdc9d4;
+}
+
+/* /////////////////////////////////// */
+
+.ant-input-outlined, .ant-input-outlined:hover , .ant-input-outlined:focus, 
+.ant-input-number-outlined,
+.ant-input-number-outlined:hover,
+.ant-input-number-input {
+  background: var(--card-bg);
+  border: none;
+  color: var(--primary-font-colour)! important;
+  width: 100%;
+}
+
+.ant-input-outlined.ant-input-status-error:not(.ant-input-disabled),
+.ant-input-outlined.ant-input-status-error:not(.ant-input-disabled):hover,
+.ant-input-outlined.ant-input-status-error:not(.ant-input-disabled):focus
+{
+  background-color: var(--card-bg);
+}
+
+
+.ant-form-item .ant-form-item-label > label {
+  color: var(--primary-font-colour);
+}
+
+.ant-btn-default{
+  background-color: transparent;
+  color: var(--primary-font-colour);
+  border: none;
+}
+
+.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+    background-color: var(--card-bg);
+    color: var(--primary-font-colour);
+}
+
+.ant-btn-primary {
+  background-color: var(--lilac);
+  color: var(--primary-font-colour);
+  border: none;
+}
+
+.ant-btn-primary:disabled{
+  background-color: var(--card-bg);
+}
+
+.ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
+  background-color: var(--lilac-hover);
+  color: var(--primary-font-colour);
+}
+
+
+
 @media (min-width: 1920px) {
   body {
     font-size: 18px; 
