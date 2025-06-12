@@ -11,6 +11,7 @@ import {
   completarONoEjercicio,
 } from "../api/Api";
 import "../styles/ejercicio.css";
+import EjercicioFormModal from "./EjercicioFormModal";
 
 const Ejercicio = ({
   updateEjercicio,
@@ -203,7 +204,19 @@ const Ejercicio = ({
         )}
       </div>
 
-      <Modal
+      <EjercicioFormModal
+        ejercicio={ejercicio}
+        open={isModalVisible}
+        onCancel={handleCancel}
+        onSubmit={handleSaveChanges }
+        confirmLoading={isUpdating}
+        editedFields={editedFields}
+        handleFieldChange={handleFieldChange}
+        form={form}
+        isFormInvalid={isFormInvalid}
+      />
+
+      {/* <Modal
         title={
           ejercicio
             ? `Editar ejercicio: ${ejercicio.nombre}`
@@ -214,6 +227,7 @@ const Ejercicio = ({
         onOk={ejercicio ? handleSaveChanges : handleCreateExercise}
         confirmLoading={isUpdating || isCreating}
         okButtonProps={{ disabled: isFormInvalid() }}
+        className="custom-modal"
         modalRender={(modal) => (
         <div onClick={(e) => e.stopPropagation()}>{modal}</div>
         )}
@@ -316,7 +330,7 @@ const Ejercicio = ({
             <Input />
           </Form.Item>
         </Form>
-      </Modal>
+      </Modal> */}
       <Modal
         title="Confirmar acción"
         open={isOpen}
@@ -324,6 +338,7 @@ const Ejercicio = ({
         onCancel={handleCancel}
         okText="Eliminar"
         cancelText="Cancelar"
+        className="custom-modal"
         modalRender={(modal) => (
         <div onClick={(e) => e.stopPropagation()}>{modal}</div>
         )}
@@ -335,7 +350,7 @@ const Ejercicio = ({
         open={isDetailsModalVisible}
         onCancel={() => setIsDetailsModalVisible(false)}
         footer={null}
-        className="exercise-details-modal"
+        className="custom-modal"
         modalRender={(modal) => (
         <div onClick={(e) => e.stopPropagation()}>{modal}</div>
         )}
