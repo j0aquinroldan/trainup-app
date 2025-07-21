@@ -8,7 +8,7 @@ Está construido con un backend en **Kotlin + Spring Boot** y un frontend en **R
 
 ---
 
-##🎯 Objetivo del proyecto
+## 🎯 Objetivo del proyecto
 El principal objetivo del trabajo práctico fue aplicar metodologías ágiles de desarrollo, específicamente Scrum, para planificar, organizar y ejecutar el proyecto de manera colaborativa y eficiente, además de implementar una aplicación funcional que permita gestionar rutinas de entrenamiento.
 
 ---
