@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     width: 15%;
-    background-color: #1d1f27;
+    background-color: #48467e2e;
     height: 100%;
     padding-top: 2rem;
     border-right: 1px solid #8783f1;
@@ -13,9 +13,9 @@
     overflow: hidden;
 }
 
-.sidebar:hover {
+/* .sidebar:hover {
     width: 20%;
-}
+} */
 
 .sidebar ul {
     display: flex;
@@ -32,10 +32,10 @@
 .sidebar-btn {
     width: 90%;
     padding: 10px;
-    background-color: #343434;
+    background-color: #00265c30;
     border: none;
     border-radius: 0 20px 20px 0;
-    color: white;
+    color: var(--primary-font-colour);
     text-align: left;
     font-size: 1.1rem;
     display: flex;
@@ -44,6 +44,16 @@
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
     padding-left: 1rem;
+    font-weight: 300;
+}
+
+.sidebar-btn.active{
+    font-weight: 900;
+    /* transform: scale(1.05);  */
+    border-top: solid 1px #007bff;
+    border-bottom: solid 1px #007bff;
+    border-right: solid 1px #007bff;
+    box-shadow: 0 0 0.2rem rgba(0, 123, 255, 0.5);
 }
 
 .nes {
@@ -69,7 +79,9 @@
 
 .sidebar-btn:hover {
     background-color: #1d41b9;
-    transform: scale(1.05); 
+    /* transform: scale(1.05);  */
+    /* border: solid 1px #007bff; */
+    box-shadow: 0 0 0.2rem rgba(0, 123, 255, 0.5);
 }
 
 .sidebar-btn:focus {

@@ -106,10 +106,10 @@ const CardRutinaSimple = ({ rutina }) => {
 
 
       <div className='card-btns'>
-          <button className='none-style-btn' onClick={() => handlerFavorite(rutina)}>
+          {/* <button className='none-style-btn' onClick={() => handlerFavorite(rutina)}>
             <FontAwesomeIcon icon={faStar} className={`icon ${isFavorite ? `favorite` : ``}`}/>
-          </button>
-      {user?.esAdmin && (
+          </button> */}
+        {user?.rol === "ADMIN" && (
         <>
           <button className='none-style-btn' onClick={() => handlerEdit(rutina)}>
             <FontAwesomeIcon icon={faPenToSquare} className="icon" />

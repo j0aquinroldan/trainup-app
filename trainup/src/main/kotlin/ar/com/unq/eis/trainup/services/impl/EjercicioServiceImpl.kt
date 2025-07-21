@@ -1,74 +1,61 @@
-package ar.com.unq.eis.trainup.services.impl
-
-import EjercicioService
-import ar.com.unq.eis.trainup.dao.EjercicioDAO
-import ar.com.unq.eis.trainup.model.Ejercicio
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
-@Service
-class EjercicioServiceImpl(
-    @Autowired private val ejercicioDAO: EjercicioDAO
-) : EjercicioService {
-
-    override fun crearEjercicio(ejercicio: Ejercicio): Ejercicio {
-        return try {
-            ejercicioDAO.save(ejercicio)
-        } catch (e: Exception) {
-            throw RuntimeException("Error al crear el ejercicio: ${e.message}")
-        }
-    }
-
-    override fun obtenerEjercicios(): List<Ejercicio> {
-        return try {
-            ejercicioDAO.findAll()
-        } catch (e: Exception) {
-            throw RuntimeException("Error al obtener la lista de ejercicios: ${e.message}")
-        }
-    }
-
-    override fun obtenerEjercicioPorId(id: String): Ejercicio {
-        return try {
-            val ejercicio = ejercicioDAO.findById(id)
-            if (ejercicio.isPresent) {
-                ejercicio.get()
-            } else {
-                throw NoSuchElementException("No se encontró el ejercicio con id: $id")
-            }
-        } catch (e: NoSuchElementException) {
-            throw e
-        } catch (e: Exception) {
-            throw RuntimeException("Error al buscar el ejercicio por id: ${e.message}")
-        }
-    }
-
-    override fun actualizarEjercicio(id: String, ejercicioActualizado: Ejercicio): Ejercicio {
-        return try {
-            val ejercicioExistente = ejercicioDAO.findById(id)
-            if (ejercicioExistente.isPresent) {
-                return ejercicioDAO.save(ejercicioActualizado)
-            } else {
-                throw NoSuchElementException("No se encontró el ejercicio con id: $id")
-            }
-        } catch (e: NoSuchElementException) {
-            throw e
-        } catch (e: Exception) {
-            throw RuntimeException("Error al actualizar el ejercicio: ${e.message}")
-        }
-    }
-
-
-    override fun eliminarEjercicio(id: String) {
-        try {
-            if (ejercicioDAO.existsById(id)) {
-                ejercicioDAO.deleteById(id)
-            } else {
-                throw NoSuchElementException("No se encontró el ejercicio con id: $id")
-            }
-        } catch (e: NoSuchElementException) {
-            throw e
-        } catch (e: Exception) {
-            throw RuntimeException("Error al eliminar el ejercicio: ${e.message}")
-        }
-    }
-}
+//package ar.com.unq.eis.trainup.services.impl
+//
+//import EjercicioService
+//import ar.com.unq.eis.trainup.dao.EjercicioDAO
+//import ar.com.unq.eis.trainup.model.Ejercicio
+//import org.springframework.beans.factory.annotation.Autowired
+//import org.springframework.stereotype.Service
+//import kotlin.jvm.optionals.getOrElse
+//
+//@Service
+//class EjercicioServiceImpl(
+//    @Autowired private val ejercicioDAO: EjercicioDAO
+//) : EjercicioService {
+//
+//    override fun crearEjercicio(ejercicio: Ejercicio): Ejercicio {
+//        return ejercicioDAO.save(ejercicio)
+//    }
+//
+//    override fun obtenerEjercicios(): List<Ejercicio> {
+//        return ejercicioDAO.findAll()
+//    }
+//
+//    override fun obtenerEjercicioPorId(id: String): Ejercicio {
+//        return ejercicioDAO.findById(id).orElseThrow {
+//            NoSuchElementException("No se encontró el ejercicio con id: $id")
+//        }
+//    }
+//
+//
+//    override fun actualizarEjercicio(ejercicioActualizado: Ejercicio): Ejercicio {
+//
+//        val id = ejercicioActualizado.id ?: throw IllegalArgumentException("id no puede ser null")
+//
+//        val ejercicioExistente = ejercicioDAO.findById(id).getOrElse {
+//            throw NoSuchElementException("No se encontró el ejercicio con id: $id")
+//        }
+//
+//        ejercicioExistente.peso = ejercicioActualizado.peso
+//        ejercicioExistente.nombre = ejercicioActualizado.nombre
+//        ejercicioExistente.descansoSegundos = ejercicioActualizado.descansoSegundos
+//        ejercicioExistente.series = ejercicioActualizado.series
+//        ejercicioExistente.repeticiones = ejercicioActualizado.repeticiones
+//        ejercicioExistente.descripcion = ejercicioActualizado.descripcion
+//        ejercicioExistente.equipo = ejercicioActualizado.equipo
+//        ejercicioExistente.instrucciones = ejercicioActualizado.instrucciones
+//        ejercicioExistente.musculo = ejercicioActualizado.musculo
+//
+//        return ejercicioDAO.save(ejercicioExistente)
+//
+//    }
+//
+//
+//    override fun eliminarEjercicio(id: String) {
+//
+//        if (ejercicioDAO.existsById(id)) {
+//            ejercicioDAO.deleteById(id)
+//        } else {
+//            throw NoSuchElementException("No se encontró el ejercicio con id: $id")
+//        }
+//    }
+//}

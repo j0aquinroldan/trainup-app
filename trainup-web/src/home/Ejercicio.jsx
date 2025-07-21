@@ -3,7 +3,7 @@ import { notification, Modal, Input, Form, Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useLogin } from '../context/LoginContext';
-import { crearEjercicio, actualizarEjercicio, eliminarEjercicioDeRutina, actualizarEjercicioEnRutina, actualizarUsuario, completarONoEjercicio } from '../api/Api';
+import { agregarEjercicioARutina, eliminarEjercicioDeRutina, actualizarEjercicioEnRutina, actualizarUsuario, completarONoEjercicio } from '../api/Api';
 import "../styles/ejercicio.css";
 
 
@@ -41,9 +41,9 @@ const Ejercicio = ({ updateEjercicio, deleteEjercicio, ejercicio, rutinaID }) =>
             await form.validateFields();
             setIsUpdating(true);
             actualizarEjercicioEnRutina(rutinaID, editedFields)
-            actualizarEjercicio(editedFields).then(({ data }) => {
-                updateEjercicio(data)
-            });
+            // actualizarEjercicio(editedFields).then(({ data }) => {
+            //     updateEjercicio(data)
+            // });
 
 
             notification.success({
@@ -67,7 +67,7 @@ const Ejercicio = ({ updateEjercicio, deleteEjercicio, ejercicio, rutinaID }) =>
         try {
             await form.validateFields();
             setIsCreating(true);
-            const newExercise = await crearEjercicio(editedFields);
+            const newExercise = await agregarEjercicioARutina(editedFields);
             notification.success({
                 message: '¡Éxito!',
                 description: `El ejercicio "${newExercise.nombre}" ha sido creado exitosamente.`,
@@ -110,23 +110,17 @@ const Ejercicio = ({ updateEjercicio, deleteEjercicio, ejercicio, rutinaID }) =>
 
     const handleCheckboxChange = async () => {
 
-
-        const updatedEjercicio = {
-            ...ejercicio,
-            completado: !completado
-        };
-
         setCompletado(!completado);
 
-        actualizarEjercicio(updatedEjercicio).then(() => {
+        
             completarONoEjercicio(user.id, rutinaID, ejercicio.id)
-        }).catch(() => {
-            notification.error({
-                message: 'Error al actualizar',
-                description: `No se pudo actualizar el estado del ejercicio "${ejercicio.nombre}".`,
-                placement: 'topRight',
-            });
-        })
+        // }).catch(() => {
+        //     notification.error({
+        //         message: 'Error al actualizar',
+        //         description: `No se pudo actualizar el estado del ejercicio "${ejercicio.nombre}".`,
+        //         placement: 'topRight',
+        //     });
+        // })
     };
 
     const showDetailsModal = () => {
@@ -153,7 +147,7 @@ const Ejercicio = ({ updateEjercicio, deleteEjercicio, ejercicio, rutinaID }) =>
                 </div>
             )}
             <div className="exercise-footer">
-                {ejercicio && user.esAdmin ? (
+                {ejercicio && user.rol ==="ADMIN" ? (
                     <>
                         <FontAwesomeIcon icon={faPenToSquare} className="icon edit-icon" onClick={showEditModal} />
                         <FontAwesomeIcon icon={faTrash} className="icon edit-icon" onClick={() => setIsOpen(true)} />
@@ -283,7 +277,7 @@ const Ejercicio = ({ updateEjercicio, deleteEjercicio, ejercicio, rutinaID }) =>
                 <p><strong>Instrucciones:</strong> {ejercicio.instrucciones}</p>
 
                 <div className="exercise-footer">
-                    {ejercicio && user.esAdmin ? (
+                    {ejercicio && user.rol === "ADMIN" ? (
                         <>
                             <FontAwesomeIcon icon={faPenToSquare} className="icon edit-icon" onClick={showEditModal} />
                             <FontAwesomeIcon icon={faTrash} className="icon edit-icon" onClick={() => setIsOpen(true)} />

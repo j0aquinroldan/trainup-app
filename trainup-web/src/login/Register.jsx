@@ -121,7 +121,7 @@ const Register = () => {
           <div className='default-box none-mp column-box'>
             <label htmlFor="username" className='bold'>Nombre de Usuario</label>
             <input
-              className='primary-textbar textbar-xxl'
+              className='primary-textbar '
               type="text"
               name="username"
               value={formData.username}
@@ -135,7 +135,7 @@ const Register = () => {
           <div className='default-box none-mp column-box'>
             <label htmlFor="password" className='bold'>Contraseña</label>
             <input
-              className='primary-textbar textbar-xxl'
+              className='primary-textbar '
               type="password"
               name="password"
               value={formData.password}
@@ -151,7 +151,7 @@ const Register = () => {
           <div className='default-box none-mp column-box'>
             <label htmlFor="nombreCompleto" className='bold'>Nombre Completo</label>
             <input
-              className='primary-textbar textbar-xxl'
+              className='primary-textbar '
               type="text"
               name="nombreCompleto"
               value={formData.nombreCompleto}
@@ -165,7 +165,7 @@ const Register = () => {
           <div className='default-box none-mp column-box'>
             <label htmlFor="fecNacimiento" className='bold'>Fecha de Nacimiento</label>
             <input
-              className='primary-textbar textbar-xxl'
+              className='primary-textbar '
               type="date"
               name="fecNacimiento"
               value={formData.fecNacimiento}
@@ -180,7 +180,7 @@ const Register = () => {
           <div className='default-box none-mp column-box'>
             <label htmlFor="telefono" className='bold'>Teléfono</label>
             <input
-              className='primary-textbar textbar-xxl'
+              className='primary-textbar '
               type="tel"
               name="telefono"
               value={formData.telefono}
@@ -194,7 +194,7 @@ const Register = () => {
           <div className='default-box none-mp column-box'>
             <label htmlFor="genero" className='bold'>Género</label>
             <input
-              className='primary-textbar textbar-xxl'
+              className='primary-textbar '
               type="text"
               name="genero"
               value={formData.genero}
@@ -210,7 +210,7 @@ const Register = () => {
           <div className='default-box none-mp column-box'>
             <label htmlFor="altura" className='bold'>Altura (cm)</label>
             <input
-              className='primary-textbar textbar-xxl'
+              className='primary-textbar '
               type="number"
               name="altura"
               value={formData.altura}
@@ -225,7 +225,7 @@ const Register = () => {
           <div className='default-box none-mp column-box'>
             <label htmlFor="peso" className='bold'>Peso (kg)</label>
             <input
-              className='primary-textbar textbar-xxl'
+              className='primary-textbar '
               type="number"
               name="peso"
               value={formData.peso}

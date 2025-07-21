@@ -31,6 +31,10 @@
     margin-top: 3rem;
 }
 
+.mb-1{
+    margin-bottom: 1rem;
+}
+
 .jc-center {
     justify-content: center;
 }
@@ -43,6 +47,11 @@
     text-align: center;
 }
 
+.ta-left {
+    width: 100%;
+  text-align: left;
+}
+
 .bold {
     font-weight: bold;
 }
@@ -50,6 +59,10 @@
 .center {
     justify-content: center;
     align-items: center;
+}
+
+.flex-column{
+    flex-direction: column;
 }
 
 .max-size-vh {
@@ -71,4 +84,12 @@
 
 .size-m {
     font-size: 2rem;
+}
+
+.overflow-y-auto{
+    overflow-y: auto;
+}
+
+.padding-r-s {
+    padding-right: 1rem;
 }

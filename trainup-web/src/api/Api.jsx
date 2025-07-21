@@ -3,7 +3,7 @@ import { notification } from 'antd';
 import 'antd/dist/reset.css';
 
 // URL base de la API 
-axios.defaults.baseURL = "https://trainup-app-production.up.railway.app/api"
+axios.defaults.baseURL = "http://localhost:8080/api"
 
 const handleError = (error) => {
   let errorMessage = 'Ocurrió un error inesperado';
@@ -27,7 +27,7 @@ const handleError = (error) => {
 */
 
 const crearRutina = (body) => axios.post(`/rutinas`, body)
-const obtenerRutinas = () => axios.get(`/rutinas`)
+const obtenerRutinas = (page) => axios.get(`/rutinas?page=${page}`)
 const actualizarRutina = (body) => axios.put(`/rutinas`, body)
 const eliminarRutina = (id) => axios.delete(`/rutinas/${id}`)
 const obtenerRutinaPorId = (id) => axios.get(`/rutinas/${id}`);
@@ -41,52 +41,55 @@ const agregarRutinaFavorita = (usuarioID, rutinaID) => axios.put(`/usuario/${usu
 * Funciones relacionadas con "Ejercicios"
 */
 
-const crearEjercicio = (body) => axios.post(`/ejercicios`, body);
+
 const agregarEjercicioARutina = (rutinaID, ejercicio) => axios.post(`/rutinas/${rutinaID}/ejercicios`, ejercicio);
 const completarONoEjercicio = (usuarioID, rutinaID, ejercicioID) => axios.put(`/usuario/${usuarioID}/completarONoEjercicio/${rutinaID}/${ejercicioID}`);
 
 const eliminarEjercicioDeRutina = (rutinaID, ejercicioID) => axios.delete(`/rutinas/${rutinaID}/ejercicios/${ejercicioID}`);
-
-
-
-const obtenerEjercicios = async () => {
-  try {
-    const response = await axios.get(`/ejercicios`);
-    return response.data;
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-const obtenerEjercicioPorId = async (id) => {
-  try {
-    const response = await axios.get(`/ejercicios/${id}`);
-    return response.data;
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-const actualizarEjercicio = (ejercicio) => axios.put(`/ejercicios/actualizar`, ejercicio)
 const actualizarEjercicioEnRutina = (id, ejercicio) => axios.put(`/rutinas/${id}/ejercicio/actualizar`, ejercicio)
 
-const eliminarEjercicio = (ejercicioID) => {
-  return axios.delete(`/ejercicios/${ejercicioID}`);
-};
 
+// const actualizarEjercicio = (ejercicio) => axios.put(`/ejercicios/actualizar`, ejercicio)
+
+// const eliminarEjercicio = (ejercicioID) => {
+//   return axios.delete(`/ejercicios/${ejercicioID}`);
+// };
+
+
+
+/*
+ * Funciones de auth
+ */
+
+const logearUsuario = (username, password) => {
+
+  delete axios.defaults.headers.common["Authorization"]
+  
+  return axios.post('/auth/login', { username, password })
+}
+
+const crearUsuario = async (usuarioDTO) => {
+  try {
+    const response = await axios.post(`/auth/register`, usuarioDTO);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
 
 /*
  * Funciones relacionadas con "Usuarios"
  */
 
-const crearUsuario = async (usuarioDTO) => {
+export const obtenerUsuarioPorToken = async() =>{
   try {
-    const response = await axios.post(`/usuario`, usuarioDTO);
+    const response = await axios.get(`/usuario/me`);
     return response.data;
   } catch (error) {
     handleError(error);
   }
-};
+}
+
 
 const obtenerUsuarioPorUsername = async (username) => {
   try {
@@ -119,20 +122,17 @@ const eliminarUsuario = async (id) => {
   }
 };
 
-const logearUsuario = (username, password) => {
-  return axios.post('/usuario/login', { username, password });
-}
 
 const completarRutina = (userId, rutinaId) => {
   axios.post(`/usuario/completarRutina/${userId}/${rutinaId}`).then((response) => response.data).catch(handleError);
 };
 
-export const isFollowing = (rutinaID) => {
-  return axios.get(`/usuario/isFollowing/${localStorage.getItem('id')}/${rutinaID}`);
+export const isFollowing = (userId, rutinaID) => {
+  return axios.get(`/usuario/isFollowing/${userId}/${rutinaID}`);
 }
 
-export const seguirRutina = (rutinaID) => {
-  return axios.put(`/usuario/follow/${localStorage.getItem('id')}/${rutinaID}`);
+export const seguirRutina = (userId, rutinaID) => {
+  return axios.put(`/usuario/follow/${userId}/${rutinaID}`);
 }
 
 
@@ -144,11 +144,6 @@ export {
   obtenerRutinaPorId,
   actualizarRutina,
   eliminarRutina,
-  crearEjercicio,
-  obtenerEjercicios,
-  obtenerEjercicioPorId,
-  actualizarEjercicio,
-  eliminarEjercicio,
   crearUsuario,
   obtenerUsuarioPorUsername,
   obtenerUsuarios,

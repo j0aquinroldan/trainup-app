@@ -47,7 +47,7 @@ const ListRutinas = ({ rutinas, esCompletada }) => {
   };
 
   return (
-    <div className="container-boxinfo">
+    <div className="container-boxinfo width100">
       {
         rutinas && rutinas.length > 0 ? (
           rutinas.map(rutina => (
@@ -67,12 +67,11 @@ const ListRutinas = ({ rutinas, esCompletada }) => {
               <div className="card-footer">
                 <p className="category">{rutina.categoria}</p>
                 <p className={`status ${esCompletada ? 'completed' : 'incomplete'}`}>
-                  {esCompletada ? 'Completada' : 'No Completada'}
+                  {esCompletada ? 'Completada' : 'En curso'}
                 </p>
-                <p>{rutina.fechaDeCreacion}</p>
               </div>
 
-              {!esCompletada && (
+              {/* {!esCompletada && (
                 <button
                   className={`complete-btn ${rutina.completada ? 'completed' : ''}`}
                   onClick={(e) => {
@@ -82,7 +81,7 @@ const ListRutinas = ({ rutinas, esCompletada }) => {
                 >
                   {rutina.completada ? '✓' : 'O'}
                 </button>
-              )}
+              )} */}
             </div>
           ))
         ) : (

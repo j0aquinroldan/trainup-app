@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { logearUsuario, actualizarUsuario, obtenerUsuarioPorID } from '../api/Api';
+import { logearUsuario, actualizarUsuario, obtenerUsuarioPorID, obtenerUsuarioPorToken } from '../api/Api';
 import { notification } from 'antd';
 import 'antd/dist/reset.css';
+import axios from 'axios';
 
 const LoginContext = createContext();
 
@@ -12,13 +13,16 @@ export const LoginProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const username = localStorage.getItem('username');
-    const password = localStorage.getItem('password');
-    const userId = localStorage.getItem('id');
+    const storedToken = localStorage.getItem('token');
     
-    if (username && password && userId) {
-      obtenerUsuarioPorID(userId)
-        .then(({ data }) => {
+    if (storedToken) {
+
+      axios.defaults.headers.common["Authorization"] = `Bearer ${storedToken}`
+
+      obtenerUsuarioPorToken(storedToken)
+        .then(( data ) => {
+          console.log(`stored user ${data}`)
+          console.log(`stored token ${storedToken}`)
           setUser(data);
         })
         .catch(() => {
@@ -33,26 +37,34 @@ export const LoginProvider = ({ children }) => {
     }
   }, [navigate]);
 
-  const validateLogin = (username, password) => {
-    logearUsuario(username, password)
-      .then(({ data }) => {
-        localStorage.setItem('id', data.id);
-        localStorage.setItem('username', data.username);
-        localStorage.setItem('password', data.password);
-        setUser(data);
-        navigate('/es/home');
-      })
-      .catch((e) => {
+  const validateLogin = async (username, password) => {
+
+    try{
+      const {data} = await logearUsuario(username, password);
+      const {token} = data;
+      
+      localStorage.setItem('token', token);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+
+      const user = await obtenerUsuarioPorToken()
+      localStorage.setItem('username', user.username)
+      setUser(user);
+      console.log(`usuario = ${user}`)
+      
+      navigate('/es/home');
+
+    }catch(e) {
         console.log(e)
         notification.error({
           message: 'Error de Autenticación',
           description: 'El nombre de usuario o la contraseña son incorrectos.',
           placement: 'topRight',
         });
-      });
+      };
   };
 
   const restartLogin = () => {
+    delete axios.defaults.headers.common["Authorization"]
     setUser(null);
     localStorage.clear();
     navigate('/init');

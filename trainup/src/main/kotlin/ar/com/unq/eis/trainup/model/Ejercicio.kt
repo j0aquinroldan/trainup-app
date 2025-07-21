@@ -17,7 +17,6 @@ class Ejercicio {
     var descansoSegundos: Int = 0
     var equipo: String = ""
     var instrucciones: String = ""
-    var completado: Boolean = false
 
     constructor()
 
@@ -31,8 +30,7 @@ class Ejercicio {
         series: Int,
         descansoSegundos: Int,
         equipo: String,
-        instrucciones: String,
-        completado: Boolean = false
+        instrucciones: String
     ) {
         // Validaciones
         require(nombre.isNotEmpty()) { "El nombre del ejercicio no puede estar vacío" }
@@ -53,10 +51,9 @@ class Ejercicio {
         this.descansoSegundos = descansoSegundos
         this.equipo = equipo
         this.instrucciones = instrucciones
-        this.completado = completado
     }
 
     override fun toString(): String {
-        return "Ejercicio(id='$id', nombre='$nombre', descripcion='$descripcion', repeticiones=$repeticiones, peso=$peso, musculo='$musculo', series=$series, descansoSegundos=$descansoSegundos, equipo='$equipo', instrucciones='$instrucciones', completado=$completado)"
+        return "Ejercicio(id='$id', nombre='$nombre', descripcion='$descripcion', repeticiones=$repeticiones, peso=$peso, musculo='$musculo', series=$series, descansoSegundos=$descansoSegundos, equipo='$equipo', instrucciones='$instrucciones')"
     }
 }

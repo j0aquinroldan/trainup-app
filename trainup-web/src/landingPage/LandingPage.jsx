@@ -15,7 +15,7 @@ const LandingPage = () => {
   return (
     <div className='trainUp-center'>
       <header className='landing-header'>
-        <h1>TRAIN UP</h1>
+        <h1> TRAIN UP</h1>
         <h3>TU MEJOR APLICACIÓN DE ENTRENAMIENTO</h3>
         <div className='mt-10 flx jc-center gap-s'>
           <button className='default-btn modern-btn' onClick={() => navigate('/login')}>Iniciar sesión</button>

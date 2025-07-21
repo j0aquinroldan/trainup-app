@@ -12,8 +12,7 @@ import ar.com.unq.eis.trainup.model.Ejercicio
     var series: Int = 0,
     var descansoSegundos: Int = 0,
     var equipo: String = "",
-    var instrucciones: String = "",
-    var completado: Boolean = false
+    var instrucciones: String = ""
 ) {
 
     companion object {
@@ -28,8 +27,7 @@ import ar.com.unq.eis.trainup.model.Ejercicio
                 series = ejercicio.series,
                 descansoSegundos = ejercicio.descansoSegundos,
                 equipo = ejercicio.equipo,
-                instrucciones = ejercicio.instrucciones,
-                completado = ejercicio.completado
+                instrucciones = ejercicio.instrucciones
             )
         }
     }
@@ -45,8 +43,7 @@ import ar.com.unq.eis.trainup.model.Ejercicio
             series = this.series,
             descansoSegundos = this.descansoSegundos,
             equipo = this.equipo,
-            instrucciones = this.instrucciones,
-            completado = this.completado
+            instrucciones = this.instrucciones
         )
     }
 }

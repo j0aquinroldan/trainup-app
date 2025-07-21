@@ -1,21 +1,23 @@
 package ar.com.unq.eis.trainup.model
 
-import ar.com.unq.eis.trainup.controller.Exceptions.UsuarioException
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
 import java.time.LocalDate
 import java.util.*
 
 @Document(collection = "usuarios")
-class Usuario() {
+class Usuario():UserDetails {
 
     @Id
     var id: String? = null
 
     @Indexed(unique = true)
-    var username: String = ""
-    var password: String = ""
+    private var username: String = ""
+    private var password: String = ""
     var rutinasSeguidas: MutableList<Rutina> = mutableListOf()
     var rutinasCompletadas: MutableList<Rutina> = mutableListOf()
     var nombre: String = ""
@@ -26,8 +28,9 @@ class Usuario() {
     var altura: String = ""
     var peso: String = ""
     var objetivo: String = ""
-    var esAdmin: Boolean = false
+    var rol: Role = Role.USER;
     var rutinasFavoritas: MutableList<Rutina> = mutableListOf()
+    var ejerciciosCompletados: MutableList<EjercicioCompletado> = mutableListOf()
 
     constructor(
         username: String,
@@ -40,7 +43,7 @@ class Usuario() {
         altura: String,
         peso: String,
         objetivo: String,
-        esAdmin: Boolean = false
+        rol: Role = Role.USER
     ) : this() {
         require(username.isNotBlank()) { "El username no puede estar vacío" }
         require(password.isNotEmpty()) { "La contraseña no puede estar vacía" }
@@ -56,8 +59,9 @@ class Usuario() {
         this.altura = altura
         this.peso = peso
         this.objetivo = objetivo
-        this.esAdmin = esAdmin
+        this.rol = rol
     }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || javaClass != other.javaClass) return false
@@ -69,48 +73,62 @@ class Usuario() {
         return Objects.hash(id)
     }
 
-    fun completarRutina(rutina: Rutina) {
-        if (!rutinasSeguidas.contains(rutina))throw UsuarioException("El usuario ${this.username} no sigue a rutina id: ${rutina.id}")
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
+        return mutableListOf(SimpleGrantedAuthority(rol.name))
+    }
 
-        rutinasSeguidas.removeIf { it == rutina }
+    override fun getPassword(): String {
+        return this.password
+    }
 
-        if (!rutinasCompletadas.contains(rutina)) {
+    override fun getUsername(): String {
+        return this.username
+    }
+
+    fun setUsername(username:String){
+        this.username = username
+    }
+
+    fun setPassword(password:String){
+        this.password = password
+    }
+
+    fun completarRutina(idRutina: String): Boolean {
+
+        val rutina = rutinasSeguidas.find { it.id == idRutina } // debe seguir a la rutina para poder completarla
+
+        if (rutina == null) return false
+
+        if (!rutinasCompletadas.contains(rutina)) { // en caso de que no la haya completado previamente se agrega a su historial
             rutinasCompletadas.add(rutina)
         }
+
+        return true
     }
 
     fun followUnfollowRutina(rutina: Rutina) {
-        val rutinaExistente = rutinasSeguidas.find { it.id == rutina.id }
-        if (rutinaExistente != null) {
-            rutinasSeguidas.removeIf { it.id == rutina.id }
-        } else {
+        if (!rutinasSeguidas.removeIf { it.id == rutina.id }) {
             rutinasSeguidas.add(rutina)
         }
     }
 
-    fun isFollowing(rutina: Rutina): Boolean {
-        return rutinasSeguidas.any { it.id == rutina.id }
+    fun isFollowing(rutinaID: String): Boolean {
+        return rutinasSeguidas.any { it.id == rutinaID }
     }
 
     fun completarEjercicio(idRutina: String, idEjercicio: String) {
-        rutinasSeguidas.map { rutina ->
-            if (rutina.id == idRutina) {
-                rutina.ejercicios.map { ejercicio ->
-                    if (ejercicio.id == idEjercicio) {
-                        ejercicio.completado = true
-                    }
-                }
-            }
+
+        val rutina = rutinasSeguidas.find { it.id == idRutina } // debe seguir a la rutina
+        val ejercicio = rutina?.ejercicios?.find { it.id == idEjercicio } // el ejercicio debe estar en la rutina
+
+        if (ejercicio != null && !ejerciciosCompletados.any { it.ejercicioID == idEjercicio }) {
+            ejerciciosCompletados.add(EjercicioCompletado(idRutina, idEjercicio))
         }
     }
 
-    fun agregarRutinaFavorita(rutina: Rutina) {
-        val rutinaExistente = rutinasFavoritas.find { it.id == rutina.id }
-        if (rutinaExistente == null) {
+    fun agregarONoRutinaFavorita(rutina: Rutina) {
+        if (!rutinasFavoritas.removeIf { it.id == rutina.id }) {
             rutinasFavoritas.add(rutina)
-        } else {
-            rutinasFavoritas.removeIf { it.id == rutina.id }
         }
-
     }
 }

@@ -1,8 +1,5 @@
 package ar.com.unq.eis.trainup.controller
 
-import ar.com.unq.eis.trainup.controller.Exceptions.RutinaException
-import ar.com.unq.eis.trainup.controller.Exceptions.UsuarioException
-import ar.com.unq.eis.trainup.controller.dto.ErrorDTO
 import ar.com.unq.eis.trainup.controller.dto.LoginDTO
 import ar.com.unq.eis.trainup.controller.dto.UserBodyDTO
 import ar.com.unq.eis.trainup.controller.dto.UsuarioDTO
@@ -10,6 +7,8 @@ import ar.com.unq.eis.trainup.services.UsuarioService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -20,148 +19,95 @@ class UsuarioController(
 
     @PostMapping
     fun crearUsuario(@RequestBody usuarioDTO: UserBodyDTO): ResponseEntity<*> {
-        return try {
-            val usuario = usuarioService.crearUsuario(usuarioDTO.aModelo())
-            ResponseEntity.ok(UsuarioDTO.desdeModelo(usuario))
-        } catch (e: IllegalStateException){
-            ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDTO(e))
-        }
-        catch (e: Exception) {
-            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ErrorDTO(e))
-        }
+        val usuario = usuarioService.crearUsuario(usuarioDTO.aModelo())
+        return ResponseEntity.ok(UsuarioDTO.desdeModelo(usuario))
     }
 
     @GetMapping("username/{username}")
     fun obtenerUsuarioPorUsername(@PathVariable username: String): ResponseEntity<*> {
-        return try {
-            val usuario = usuarioService.obtenerUsuarioPorUsername(username)
-            ResponseEntity.ok(UsuarioDTO.desdeModelo(usuario))
-        } catch (e: UsuarioException) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDTO(e))
-        }
+
+        val usuario = usuarioService.obtenerUsuarioPorUsername(username)
+        return ResponseEntity.ok(UsuarioDTO.desdeModelo(usuario))
+
     }
 
     @GetMapping("id/{id}")
     fun obtenerUsuarioPorID(@PathVariable id: String): ResponseEntity<*> {
-        return try {
-            val usuario = usuarioService.obtenerUsuarioPorID(id)
-            ResponseEntity.ok(UsuarioDTO.desdeModelo(usuario))
-        } catch (e: UsuarioException) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDTO(e))
-        }catch (e: Exception){
-            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("ocurrio un error")
-        }
+        val usuario = usuarioService.obtenerUsuarioPorID(id)
+        return ResponseEntity.ok(UsuarioDTO.desdeModelo(usuario))
+    }
+
+    @GetMapping("/me")
+    fun getCurrentUser(@AuthenticationPrincipal userDetails: UserDetails):ResponseEntity<UsuarioDTO>{
+
+        val user = UsuarioDTO.desdeModelo(this.usuarioService.obtenerUsuarioPorUsername(userDetails.username))
+
+        return ResponseEntity.ok(user)
     }
 
     @GetMapping
     fun obtenerUsuarios(): ResponseEntity<List<UsuarioDTO>> {
-        return try {
-            val usuarios = usuarioService.obtenerUsuarios()
-            if (usuarios.isEmpty()) {
-                ResponseEntity.status(HttpStatus.NO_CONTENT).build()
-            } else {
-                ResponseEntity.ok(usuarios.map { usuario -> UsuarioDTO.desdeModelo(usuario) })
-            }
-        } catch (e: Exception) {
-            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(emptyList())
-        }
+        val usuarios = usuarioService.obtenerUsuarios()
+        return ResponseEntity.ok(usuarios.map { usuario -> UsuarioDTO.desdeModelo(usuario) })
     }
 
     @PutMapping()
     fun actualizarUsuario(@RequestBody usuarioDTO: UsuarioDTO): ResponseEntity<Any> {
-        return try {
-            val usuario = usuarioService.actualizarUsuario(usuarioDTO.aModelo())
-            ResponseEntity.ok(UsuarioDTO.desdeModelo(usuario))
-        }catch (e: UsuarioException){
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDTO(e))
-        }
+        val usuario = usuarioService.actualizarUsuario(usuarioDTO.aModelo())
+        return ResponseEntity.ok(UsuarioDTO.desdeModelo(usuario))
     }
 
     @DeleteMapping("/{id}")
-    fun eliminarUsuario(@PathVariable userId: String): ResponseEntity<*> {
-        return try {
-            usuarioService.eliminarUsuario(userId)
-            ResponseEntity.status(HttpStatus.NO_CONTENT).body(null)
-        } catch (e: UsuarioException) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDTO(e))
-        }catch (e: Exception){
-            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("ocurrio un error")
-        }
+    fun eliminarUsuario(@PathVariable userId: String): ResponseEntity<Any> {
+        usuarioService.eliminarUsuario(userId)
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null)
     }
 
     @PostMapping("/login")
     fun loguearUsuario(@RequestBody loginDTO: LoginDTO): ResponseEntity<*> {
-        return try {
-            val username = loginDTO.username
-            val password = loginDTO.password
 
-            if (username.isBlank() || password.isBlank()) {
-                throw UsuarioException("body invalido")
-            }
-            val usuario = usuarioService.logIn(username, password)
-            ResponseEntity.ok(UsuarioDTO.desdeModelo(usuario))
-        } catch (e: UsuarioException) {
-            ResponseEntity.badRequest().body(ErrorDTO(e))
+        val username = loginDTO.username
+        val password = loginDTO.password
+
+        if (username.isBlank() || password.isBlank()) {
+            throw IllegalArgumentException("body invalido")
         }
+        val usuario = usuarioService.logIn(username, password)
+        return ResponseEntity.ok(UsuarioDTO.desdeModelo(usuario))
     }
 
     @PostMapping("/completarRutina/{userId}/{rutinaId}")
-    fun completarRutina(@PathVariable userId: String, @PathVariable rutinaId: String):ResponseEntity<*>{
-        return try {
-            usuarioService.completarRutina(userId,rutinaId)
-            ResponseEntity.ok("rutina completada exitosamente")
-        }catch (e: RutinaException){
-            ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDTO(e))
-        }catch (e: UsuarioException){
-            ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDTO(e))
-        }
+    fun completarRutina(@PathVariable userId: String, @PathVariable rutinaId: String): ResponseEntity<*> {
+        usuarioService.completarRutina(userId, rutinaId)
+        return ResponseEntity.ok("rutina completada exitosamente")
     }
 
     @PutMapping("/{userId}/completarONoEjercicio/{rutinaId}/{ejercicioId}")
-    fun completarONoEjercicio(@PathVariable userId: String, @PathVariable rutinaId: String, @PathVariable ejercicioId: String):ResponseEntity<Any>{
-        return try {
-            usuarioService.completarEjercicio(userId,rutinaId,ejercicioId)
-            ResponseEntity.ok("ejercicio completada exitosamente")
-        }catch (e: RutinaException){
-            ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDTO(e))
-        }catch (e: UsuarioException){
-            ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDTO(e))
-        }
+    fun completarONoEjercicio(
+        @PathVariable userId: String,
+        @PathVariable rutinaId: String,
+        @PathVariable ejercicioId: String
+    ): ResponseEntity<Any> {
+
+        usuarioService.completarEjercicio(userId, rutinaId, ejercicioId)
+        return ResponseEntity.ok("ejercicio completado exitosamente")
     }
 
     @PutMapping("/follow/{userId}/{rutinaId}")
-    fun updateFollow(@PathVariable userId: String, @PathVariable rutinaId: String):ResponseEntity<*>{
-        return try{
-            val user = usuarioService.updateFollowRutina(userId, rutinaId)
-            ResponseEntity.ok(UsuarioDTO.desdeModelo(user))
-        }catch (e: RutinaException){
-            ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDTO(e))
-        }catch (e: UsuarioException){
-            ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDTO(e))
-        }
+    fun updateFollow(@PathVariable userId: String, @PathVariable rutinaId: String): ResponseEntity<*> {
+        val user = usuarioService.updateFollowRutina(userId, rutinaId)
+        return ResponseEntity.ok(UsuarioDTO.desdeModelo(user))
     }
 
     @GetMapping("/isFollowing/{userId}/{rutinaId}")
-    fun isFollowing(@PathVariable userId: String, @PathVariable rutinaId: String):ResponseEntity<*>{
-        return try {
-            val res = usuarioService.isFollowing(userId,rutinaId)
-            ResponseEntity.ok(res)
-        }catch (e: RutinaException){
-            ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDTO(e))
-        }catch (e: UsuarioException){
-            ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDTO(e))
-        }
+    fun isFollowing(@PathVariable userId: String, @PathVariable rutinaId: String): ResponseEntity<*> {
+        val res = usuarioService.isFollowing(userId, rutinaId)
+        return ResponseEntity.ok(res)
     }
 
     @PutMapping("/{idUsuario}/favorita/{idRutina}")
     fun agregarRutinaFavorita(@PathVariable idUsuario: String, @PathVariable idRutina: String): ResponseEntity<Any> {
-        return try {
-            val usuario = usuarioService.agregarRutinaFavorita(idUsuario, idRutina)
-            ResponseEntity.ok(UsuarioDTO.desdeModelo(usuario))
-        } catch (e: UsuarioException) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorDTO(e))
-        } catch (e: RutinaException) {
-            ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorDTO(e))
-        }
+        val usuario = usuarioService.agregarRutinaFavorita(idUsuario, idRutina)
+        return ResponseEntity.ok(UsuarioDTO.desdeModelo(usuario))
     }
 }

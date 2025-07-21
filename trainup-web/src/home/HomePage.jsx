@@ -8,6 +8,8 @@ import Favoritas from './Favoritas';
 const HomePage = () => {
   const { user } = useLogin();
 
+  console.log(`homeuser ${user}`)
+
   if (!user || !user.rutinasSeguidas) {
     return (
       <div className="home-container">
@@ -17,13 +19,18 @@ const HomePage = () => {
     );
   }
 
+  
+
   return (
     <div className="home-container">
-      <h1 className="home-title">Bienvenido a tu página de inicio</h1>
-      <p className="home-subtitle">Aquí encontrarás las rutinas que sigues. ¡Explora y mantente activo!</p>
-      <div className="list-rutinas-container">
-        <Favoritas rutinas={user.rutinasFavoritas}/>
+      <h1 className="home-title">Inicio</h1>
+      {/* <p className="home-subtitle">Aquí encontrarás las rutinas que sigues. ¡Explora y mantente activo!</p> */}
+      <div className="list-rutinas-container gap-m">
+        <h1 className="ta-left">Seguidas</h1>
         <ListRutinas rutinas={user.rutinasSeguidas} esCompletada={false}/>
+        <hr className="separator" />
+        <h1 className="ta-left">Favoritas</h1>
+        <Favoritas rutinas={user.rutinasFavoritas}/>
       </div>
     </div>
   );
