@@ -1,11 +1,11 @@
-import axios from 'axios';
 import { notification } from 'antd';
 import 'antd/dist/reset.css';
+import axios from 'axios';
 
 // URL base de la API 
 axios.defaults.baseURL = "http://localhost:8080/api"
 
-const handleError = (error) => {
+export const handleError = (error) => {
   let errorMessage = 'Ocurrió un error inesperado';
 
   if (error.response) {
@@ -26,15 +26,15 @@ const handleError = (error) => {
  * Funciones relacionadas con "Rutinas"
 */
 
-const crearRutina = (body) => axios.post(`/rutinas`, body)
-const obtenerRutinas = (page) => axios.get(`/rutinas?page=${page}`)
-const actualizarRutina = (body) => axios.put(`/rutinas`, body)
-const eliminarRutina = (id) => axios.delete(`/rutinas/${id}`)
-const obtenerRutinaPorId = (id) => axios.get(`/rutinas/${id}`);
-const obtenerCategorias = () => axios.get(`rutinas/categorias`)
-const obtenerRutinasPorCategoria = (categoria) => axios.get(`rutinas/categoria/${categoria}`)
-const buscarRutina = (nombre, dificultad) => axios.get(`/rutinas/buscar`, { params: { nombre: nombre, dificultad: dificultad || undefined } })
-const agregarRutinaFavorita = (usuarioID, rutinaID) => axios.put(`/usuario/${usuarioID}/favorita/${rutinaID}`)
+export const crearRutina = (body) => axios.post(`/rutinas`, body)
+export const obtenerRutinas = (page) => axios.get(`/rutinas?page=${page}`)
+export const actualizarRutina = (body) => axios.put(`/rutinas`, body)
+export const eliminarRutina = (id) => axios.delete(`/rutinas/${id}`)
+export const obtenerRutinaPorId = (id) => axios.get(`/rutinas/${id}`);
+export const obtenerCategorias = () => axios.get(`rutinas/categorias`)
+export const obtenerRutinasPorCategoria = (categoria) => axios.get(`rutinas/categoria/${categoria}`)
+export const buscarRutina = (nombre, dificultad) => axios.get(`/rutinas/buscar`, { params: { nombre: nombre, dificultad: dificultad || undefined } })
+export const agregarRutinaFavorita = (usuarioID, rutinaID) => axios.put(`/usuario/${usuarioID}/favorita/${rutinaID}`)
 
 
 /* 
@@ -42,11 +42,10 @@ const agregarRutinaFavorita = (usuarioID, rutinaID) => axios.put(`/usuario/${usu
 */
 
 
-const agregarEjercicioARutina = (rutinaID, ejercicio) => axios.post(`/rutinas/${rutinaID}/ejercicios`, ejercicio);
-const completarONoEjercicio = (usuarioID, rutinaID, ejercicioID) => axios.put(`/usuario/${usuarioID}/completarONoEjercicio/${rutinaID}/${ejercicioID}`);
-
-const eliminarEjercicioDeRutina = (rutinaID, ejercicioID) => axios.delete(`/rutinas/${rutinaID}/ejercicios/${ejercicioID}`);
-const actualizarEjercicioEnRutina = (id, ejercicio) => axios.put(`/rutinas/${id}/ejercicio/actualizar`, ejercicio)
+export const agregarEjercicioARutina = (rutinaID, ejercicio) => axios.post(`/rutinas/${rutinaID}/ejercicios`, ejercicio);
+export const completarONoEjercicio = (usuarioID, rutinaID, ejercicioID) => axios.put(`/usuario/${usuarioID}/completarONoEjercicio/${rutinaID}/${ejercicioID}`);
+export const eliminarEjercicioDeRutina = (rutinaID, ejercicioID) => axios.delete(`/rutinas/${rutinaID}/ejercicios/${ejercicioID}`);
+export const actualizarEjercicioEnRutina = (id, ejercicio) => axios.put(`/rutinas/${id}/ejercicio/actualizar`, ejercicio)
 
 
 // const actualizarEjercicio = (ejercicio) => axios.put(`/ejercicios/actualizar`, ejercicio)
@@ -61,14 +60,14 @@ const actualizarEjercicioEnRutina = (id, ejercicio) => axios.put(`/rutinas/${id}
  * Funciones de auth
  */
 
-const logearUsuario = (username, password) => {
+export const logearUsuario = (username, password) => {
 
   delete axios.defaults.headers.common["Authorization"]
   
   return axios.post('/auth/login', { username, password })
 }
 
-const crearUsuario = async (usuarioDTO) => {
+export const crearUsuario = async (usuarioDTO) => {
   try {
     const response = await axios.post(`/auth/register`, usuarioDTO);
     return response.data;
@@ -91,7 +90,7 @@ export const obtenerUsuarioPorToken = async() =>{
 }
 
 
-const obtenerUsuarioPorUsername = async (username) => {
+export const obtenerUsuarioPorUsername = async (username) => {
   try {
     const response = await axios.get(`/usuario/username/${username}`);
     return response.data;
@@ -100,9 +99,9 @@ const obtenerUsuarioPorUsername = async (username) => {
   }
 };
 
-const obtenerUsuarioPorID = (id) => axios.get(`usuario/id/${id}`)
+export const obtenerUsuarioPorID = (id) => axios.get(`usuario/id/${id}`)
 
-const obtenerUsuarios = async () => {
+export const obtenerUsuarios = async () => {
   try {
     const response = await axios.get(`/usuario`);
     return response.data;
@@ -111,9 +110,9 @@ const obtenerUsuarios = async () => {
   }
 };
 
-const actualizarUsuario = (usuarioDTO) => axios.put(`/usuario`, usuarioDTO);
+export const actualizarUsuario = (usuarioDTO) => axios.put(`/usuario`, usuarioDTO);
 
-const eliminarUsuario = async (id) => {
+export const eliminarUsuario = async (id) => {
   try {
     await axios.delete(`/${id}`);
     return;
@@ -123,7 +122,7 @@ const eliminarUsuario = async (id) => {
 };
 
 
-const completarRutina = (userId, rutinaId) => {
+export const completarRutina = (userId, rutinaId) => {
   axios.post(`/usuario/completarRutina/${userId}/${rutinaId}`).then((response) => response.data).catch(handleError);
 };
 
@@ -136,27 +135,3 @@ export const seguirRutina = (userId, rutinaID) => {
 }
 
 
-export {
-  logearUsuario,
-  handleError,
-  crearRutina,
-  obtenerRutinas,
-  obtenerRutinaPorId,
-  actualizarRutina,
-  eliminarRutina,
-  crearUsuario,
-  obtenerUsuarioPorUsername,
-  obtenerUsuarios,
-  actualizarUsuario,
-  eliminarUsuario,
-  completarRutina,
-  obtenerUsuarioPorID,
-  agregarEjercicioARutina,
-  eliminarEjercicioDeRutina,
-  actualizarEjercicioEnRutina,
-  completarONoEjercicio,
-  obtenerCategorias,
-  obtenerRutinasPorCategoria,
-  buscarRutina,
-  agregarRutinaFavorita
-};

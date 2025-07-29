@@ -1,4 +1,3 @@
-import React from 'react'
 import NotRutins from '../utils/NotRutins'
 import CardRutinaSimple from './CardRutinaSimple'
 

@@ -1,11 +1,3 @@
-import React, { useEffect, useState } from "react";
-import {
-  buscarRutina,
-  obtenerCategorias,
-  obtenerRutinasPorCategoria,
-} from "../api/Api";
-import CardRutinaSimple from "./CardRutinaSimple";
-import NotRutins from "../utils/NotRutins";
 import {
   faArrowDownAZ,
   faArrowDownZA,
@@ -13,7 +5,15 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useState } from "react";
+import {
+  buscarRutina,
+  obtenerCategorias,
+  obtenerRutinasPorCategoria,
+} from "../api/Api";
 import Loader from "../utils/Loader";
+import NotRutins from "../utils/NotRutins";
+import CardRutinaSimple from "./CardRutinaSimple";
 
 const Buscar = () => {
   const [categorias, setCategorias] = useState([]);

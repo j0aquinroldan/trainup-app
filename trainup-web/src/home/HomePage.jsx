@@ -1,9 +1,8 @@
-import React from 'react';
-import '../styles/home.css'; 
-import ListRutinas from './ListRutinas';
 import { useLogin } from '../context/LoginContext';
+import '../styles/home.css';
 import Loader from '../utils/Loader';
 import Favoritas from './Favoritas';
+import ListRutinas from './ListRutinas';
 
 const HomePage = () => {
   const { user } = useLogin();

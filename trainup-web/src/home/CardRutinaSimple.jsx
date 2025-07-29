@@ -1,12 +1,10 @@
-import { faPenToSquare, faStairs, faStar, faStarAndCrescent, faStarHalfAlt, faStarOfDavid, faStarOfLife, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { agregarRutinaFavorita, eliminarRutina } from '../api/Api';
 import { notification } from 'antd';
 import Modal from 'antd/es/modal/Modal';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { agregarRutinaFavorita, eliminarRutina } from '../api/Api';
 import { useLogin } from '../context/LoginContext';
 
 const CardRutinaSimple = ({ rutina }) => {

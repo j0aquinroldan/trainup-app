@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from 'react';
-import { obtenerRutinas } from '../api/Api';
-import CardRutinaSimple from './CardRutinaSimple';
-import NotRutins from '../utils/NotRutins';
-import DataLoader from '../utils/DataLoader';
 import { Pagination } from 'antd';
+import { useCallback, useState } from 'react';
+import { obtenerRutinas } from '../api/Api';
+import DataLoader from '../utils/DataLoader';
+import NotRutins from '../utils/NotRutins';
+import CardRutinaSimple from './CardRutinaSimple';
 
 const ExploradorPage = () => {
 

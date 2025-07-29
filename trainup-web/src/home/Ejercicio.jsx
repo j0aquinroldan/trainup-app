@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { notification, Modal, Input, Form, Button } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { useLogin } from "../context/LoginContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Form, Modal, notification } from "antd";
+import { useState } from "react";
 import {
-  agregarEjercicioARutina,
-  eliminarEjercicioDeRutina,
   actualizarEjercicioEnRutina,
-  actualizarUsuario,
+  agregarEjercicioARutina,
   completarONoEjercicio,
+  eliminarEjercicioDeRutina
 } from "../api/Api";
+import { useLogin } from "../context/LoginContext";
 import "../styles/ejercicio.css";
 import EjercicioFormModal from "./EjercicioFormModal";
 

@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { actualizarRutina } from '../api/Api';
-import Form from '../login/Form';
 import ElementForm from '../login/ElementForm';
+import Form from '../login/Form';
 
 const EditarRutina = () => {
     const location = useLocation()

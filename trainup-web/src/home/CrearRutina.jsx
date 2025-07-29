@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
 import { notification } from 'antd';
-import Form from '../login/Form'
-import ElementForm from '../login/ElementForm'
-import { crearRutina } from '../api/Api'
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { crearRutina } from '../api/Api';
+import ElementForm from '../login/ElementForm';
+import Form from '../login/Form';
 
 
 const CrearRutina = () => {

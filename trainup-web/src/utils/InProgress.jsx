@@ -1,5 +1,4 @@
-import React from 'react';
-import '../styles/inprogress.css'; 
+import '../styles/inprogress.css';
 
 
 

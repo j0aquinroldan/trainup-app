@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import { notification } from 'antd';
-import "../landingPage/landingPage.css"
+import { useState } from 'react';
+import "../landingPage/landingPage.css";
 
 const Contact = () => {
   

@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import "../styles/sidebar.css";
-import { useLocation, useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
-  faHome,
-  faCompass,
   faCheck,
-  faUser,
-  faSignOutAlt,
+  faCompass,
+  faHome,
   faPlus,
   faSearch,
+  faSignOutAlt,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useLogin } from "../context/LoginContext";
+import "../styles/sidebar.css";
 
 const Sidebar = () => {
   const navigate = useNavigate();
