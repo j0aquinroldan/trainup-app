@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
 import { notification } from 'antd';
-import Form from '../login/Form';
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { agregarEjercicioARutina } from '../api/Api';
 import ElementForm from '../login/ElementForm';
-import { agregarEjercicioARutina } from '../api/Api'; 
-import { useNavigate, useLocation } from 'react-router-dom';
+import Form from '../login/Form';
 
 const CrearEjercicio = () => {
     const navigate = useNavigate();

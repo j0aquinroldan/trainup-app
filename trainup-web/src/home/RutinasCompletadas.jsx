@@ -1,10 +1,9 @@
-import React from "react";
-import ListRutinas from "./ListRutinas";
 import { useNavigate } from "react-router-dom";
+import ListRutinas from "./ListRutinas";
 
 import { useLogin } from "../context/LoginContext";
-import Loader from "../utils/Loader";
 import "../styles/rutinasCompletadas.css";
+import Loader from "../utils/Loader";
 
 const RutinasCompletadas = () => {
   const { user } = useLogin();

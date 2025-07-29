@@ -1,5 +1,5 @@
 import { Form, Input, InputNumber, Modal } from "antd";
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const EjercicioFormModal = ({
   open,

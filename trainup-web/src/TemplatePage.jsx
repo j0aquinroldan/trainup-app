@@ -1,6 +1,5 @@
-import React from 'react'
-import './styles/templatepage.css'
 import { Outlet } from 'react-router-dom'
+import './styles/templatepage.css'
 
 const TemplatePage = () => {
   return (

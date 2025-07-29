@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import '../styles/rutinas.css';
-import { notification, Modal } from 'antd';
+import { Modal, notification } from 'antd';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLogin } from '../context/LoginContext';
 import { completarRutina } from '../api/Api';
+import { useLogin } from '../context/LoginContext';
+import '../styles/rutinas.css';
 import NotRutins from '../utils/NotRutins';
 
 const ListRutinas = ({ rutinas, esCompletada }) => {

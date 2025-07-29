@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
 import { notification } from 'antd';
-import '../styles/profile.css';
+import { useEffect, useState } from 'react';
 import { actualizarUsuario } from "../api/Api";
 import { useLogin } from '../context/LoginContext';
-import Form from '../login/Form';
 import ElementForm from '../login/ElementForm';
+import Form from '../login/Form';
+import '../styles/profile.css';
 import Loader from '../utils/Loader';
 
 const Profile = () => {

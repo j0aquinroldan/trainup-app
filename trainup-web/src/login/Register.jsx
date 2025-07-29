@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import '../styles/register.css';
 import { notification } from 'antd';
-import { crearUsuario } from '../api/Api'
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { crearUsuario } from '../api/Api';
+import '../styles/register.css';
 
 const Register = () => {
   const [formData, setFormData] = useState({

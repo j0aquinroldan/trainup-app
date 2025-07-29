@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Form } from "antd";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { obtenerRutinaPorId } from "../api/Api";
 import { useLogin } from "../context/LoginContext";
-import FollowBtn from "./FollowBtn";
 import Loader from "../utils/Loader";
 import Ejercicio from "./Ejercicio";
-import { Button, Form } from "antd";
-import { obtenerRutinaPorId } from "../api/Api";
 import EjercicioFormModal from "./EjercicioFormModal";
+import FollowBtn from "./FollowBtn";
 
 const Rutina = () => {
   const location = useLocation();

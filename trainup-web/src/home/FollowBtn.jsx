@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react';
 import { seguirRutina } from '../api/Api';
 import { useLogin } from '../context/LoginContext';
 
