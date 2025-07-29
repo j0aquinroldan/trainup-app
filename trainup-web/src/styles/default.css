@@ -93,3 +93,7 @@
 .padding-r-s {
     padding-right: 1rem;
 }
+
+.flex{
+    display: flex;
+}

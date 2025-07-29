@@ -17,12 +17,6 @@ class UsuarioController(
     @Autowired private val usuarioService: UsuarioService
 ) {
 
-    @PostMapping
-    fun crearUsuario(@RequestBody usuarioDTO: UserBodyDTO): ResponseEntity<*> {
-        val usuario = usuarioService.crearUsuario(usuarioDTO.aModelo())
-        return ResponseEntity.ok(UsuarioDTO.desdeModelo(usuario))
-    }
-
     @GetMapping("username/{username}")
     fun obtenerUsuarioPorUsername(@PathVariable username: String): ResponseEntity<*> {
 
@@ -61,19 +55,6 @@ class UsuarioController(
     fun eliminarUsuario(@PathVariable userId: String): ResponseEntity<Any> {
         usuarioService.eliminarUsuario(userId)
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null)
-    }
-
-    @PostMapping("/login")
-    fun loguearUsuario(@RequestBody loginDTO: LoginDTO): ResponseEntity<*> {
-
-        val username = loginDTO.username
-        val password = loginDTO.password
-
-        if (username.isBlank() || password.isBlank()) {
-            throw IllegalArgumentException("body invalido")
-        }
-        val usuario = usuarioService.logIn(username, password)
-        return ResponseEntity.ok(UsuarioDTO.desdeModelo(usuario))
     }
 
     @PostMapping("/completarRutina/{userId}/{rutinaId}")

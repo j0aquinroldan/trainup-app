@@ -105,10 +105,10 @@ const CardRutinaSimple = ({ rutina }) => {
       </div>
 
 
-      <div className='card-btns'>
-          {/* <button className='none-style-btn' onClick={() => handlerFavorite(rutina)}>
+      {/* <div className='card-btns'>
+          <button className='none-style-btn' onClick={() => handlerFavorite(rutina)}>
             <FontAwesomeIcon icon={faStar} className={`icon ${isFavorite ? `favorite` : ``}`}/>
-          </button> */}
+          </button>
         {user?.rol === "ADMIN" && (
         <>
           <button className='none-style-btn' onClick={() => handlerEdit(rutina)}>
@@ -119,7 +119,7 @@ const CardRutinaSimple = ({ rutina }) => {
           </button>
         </>
       )}
-      </div>
+      </div> */}
 
       <Modal
         title="Confirmar acción"

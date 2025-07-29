@@ -1,16 +1,17 @@
 .exercise-container {
-    background-color: #ffffff;
+    background-color: var(--card-bg);
     border-radius: 0.75rem; 
     padding: 1.25rem;
     margin-bottom: 1.25rem; 
     max-width: 100%;
-    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 0.25rem 0.75rem rgba(255, 255, 255, 0.1); */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .exercise-container:hover {
-    background-color: #f7f7f7;
+    background-color: rgba(255, 255, 255, 0.15);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 }
 
 .exercise-header {
@@ -18,7 +19,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem; 
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #8783f1;
     padding-bottom: 0.625rem; 
     cursor: pointer;
 }
@@ -26,19 +27,16 @@
 .exercise-header h3 {
     margin: 0;
     font-size: 1.6rem; 
-    color: #333333;
+    color: #bdc9d4;
     font-weight: bold;
     transition: color 0.3s ease;
-}
-
-.exercise-header h3:hover {
-    color: #4CAF50; 
 }
 
 .exercise-body,
 .exercise-details {
     margin-bottom: 1rem; 
     line-height: 1.6;
+    color: #bdc9d4bd;
 }
 
 .exercise-footer {
@@ -48,7 +46,7 @@
     align-items: center;
     padding-top: 0.625rem; 
     line-height: 1.6;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid #8783f1;
 }
 
 .exercise-details {
@@ -61,7 +59,7 @@
     flex: 1 1 48%;
     margin: 0.3125rem 0; 
     font-size: 1rem;
-    color: #555555;
+    /* color: #bdc9d4bd; */
 }
 
 .checkbox-container {
@@ -71,7 +69,7 @@
     margin-right: 0.9375rem; 
     cursor: pointer;
     font-size: 1.2rem;
-    color: #333;
+    color: #bdc9d4;
 }
 
 .checkbox-container input {
@@ -118,13 +116,32 @@
 .edit-icon {
     cursor: pointer;
     font-size: 1.5rem;
-    color: #4CAF50;
+    color: var(--lilac);
     transition: color 0.3s ease;
 }
 
 .edit-icon:hover {
-    color: #388E3C;
+    color: var(--lilac-hover);
 }
+/* 
+.exercise-details-modal .ant-modal-content{
+    background-color: #100f36;
+    color: #bdc9d4;
+} */
+
+/* .exercise-details-modal .ant-modal-header {
+    background-color: #100f36;
+    
+    border-bottom: 1px solid #8783f1;
+}
+
+.exercise-details-modal .ant-modal-title,.exercise-details-modal .ant-modal-close {
+    color: #bdc9d4;
+}
+
+.exercise-details-modal .ant-modal-close:hover {
+    color: #bdc9d4;
+} */
 
 @media (max-width: 768px) {
     .exercise-details p {

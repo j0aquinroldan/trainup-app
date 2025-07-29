@@ -71,6 +71,7 @@ const CrearEjercicio = () => {
                     id='repeticiones'
                     name='repeticiones'
                     setText={setRepeticiones}
+                    min={1}
                     required={true}
                 />
                 <ElementForm
@@ -79,6 +80,7 @@ const CrearEjercicio = () => {
                     id='peso'
                     name='peso'
                     setText={setPeso}
+                    min={0}
                     required={true}
                 />
                 <ElementForm
