@@ -4,6 +4,7 @@ import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { actualizarUsuario, logearUsuario, obtenerUsuarioPorToken } from '../api/Api';
+import PropTypes from 'prop-types';
 
 const LoginContext = createContext();
 
@@ -99,3 +100,7 @@ export const LoginProvider = ({ children }) => {
 };
 
 export const useLogin = () => useContext(LoginContext);
+
+LoginProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};

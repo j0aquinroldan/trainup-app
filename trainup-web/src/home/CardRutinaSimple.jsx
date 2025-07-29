@@ -83,7 +83,6 @@ const CardRutinaSimple = ({ rutina }) => {
     })
   }
 
-  // console.log(rutina.id);
 
   return (
     <div key={rutina.id} className="boxinfo">
@@ -97,8 +96,8 @@ const CardRutinaSimple = ({ rutina }) => {
         </div>
       </div>
       <div className="card-footer">
-        <p className="category">{rutina.categoria}</p>
-        <p className={'category ' + `${rutina.dificultad.toLowerCase()}`}>{rutina.dificultad}</p>
+        <p className="category">{rutina?.categoria}</p>
+        <p className={'category ' + `${rutina?.dificultad.toLowerCase()}`}>{rutina.dificultad}</p>
         <p>{rutina.fechaDeCreacion}</p>
       </div>
 

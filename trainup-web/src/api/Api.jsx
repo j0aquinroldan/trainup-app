@@ -47,15 +47,6 @@ export const completarONoEjercicio = (usuarioID, rutinaID, ejercicioID) => axios
 export const eliminarEjercicioDeRutina = (rutinaID, ejercicioID) => axios.delete(`/rutinas/${rutinaID}/ejercicios/${ejercicioID}`);
 export const actualizarEjercicioEnRutina = (id, ejercicio) => axios.put(`/rutinas/${id}/ejercicio/actualizar`, ejercicio)
 
-
-// const actualizarEjercicio = (ejercicio) => axios.put(`/ejercicios/actualizar`, ejercicio)
-
-// const eliminarEjercicio = (ejercicioID) => {
-//   return axios.delete(`/ejercicios/${ejercicioID}`);
-// };
-
-
-
 /*
  * Funciones de auth
  */
