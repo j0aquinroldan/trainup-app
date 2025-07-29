@@ -91,7 +91,7 @@ class Rutina {
     }
 
     fun eliminarEjercicio(idEjercicio: String) {
-        if(!ejercicios.removeIf{it-> it.id == idEjercicio}){
+        if(!ejercicios.removeIf{it.id == idEjercicio}){
             throw NoSuchElementException("No se encontró el ejercicio con id: $idEjercicio")
         }
     }
