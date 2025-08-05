@@ -2,9 +2,9 @@ package ar.com.unq.eis.trainup.services
 
 import ar.com.unq.eis.trainup.controller.dto.AuthResponse
 import ar.com.unq.eis.trainup.controller.dto.LoginDTO
-import ar.com.unq.eis.trainup.model.Usuario
+import ar.com.unq.eis.trainup.model.User
 
 interface AuthService {
     fun login(loginDTO: LoginDTO): AuthResponse
-    fun register(usuario: Usuario): AuthResponse
+    fun register(user: User): AuthResponse
 }

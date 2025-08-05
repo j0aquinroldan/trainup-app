@@ -1,26 +1,24 @@
 package ar.com.unq.eis.trainup.controller.dto
 
-import ar.com.unq.eis.trainup.model.Rutina
+import ar.com.unq.eis.trainup.model.Routine
 
 class BodyRutinaDTO(
     var id: String? = null,
-    var nombre: String = "",
+    var name: String = "",
     var img: String = "",
-    var descripcion: String = "",
-    var categoria: String = "",
-    var dificultad: String = ""
+    var description: String = "",
+    var category: String = "",
+    var difficulty: String = ""
 ) {
-    fun aModelo(): Rutina {
+    fun aModelo(): Routine {
 
-        val rutina = Rutina(
-            nombre = this.nombre,
+        return Routine(
+            name = this.name,
             img = this.img,
-            descripcion = this.descripcion,
-            categoria = this.categoria,
-            ejercicios = mutableListOf(),
-            dificultad = this.dificultad
-        )
-        rutina.id = this.id;
-        return rutina
+            description = this.description,
+            category = this.category,
+            exercises = mutableListOf(),
+            difficulty = this.difficulty
+        ).also { it.id = this.id }
     }
 }

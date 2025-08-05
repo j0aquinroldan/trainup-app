@@ -3,8 +3,8 @@ package ar.com.unq.eis.trainup.services.impl
 import ar.com.unq.eis.trainup.controller.Exceptions.UsuarioDuplicadoException
 import ar.com.unq.eis.trainup.controller.dto.AuthResponse
 import ar.com.unq.eis.trainup.controller.dto.LoginDTO
-import ar.com.unq.eis.trainup.dao.UsuarioDAO
-import ar.com.unq.eis.trainup.model.Usuario
+import ar.com.unq.eis.trainup.dao.UserDAO
+import ar.com.unq.eis.trainup.model.User
 import ar.com.unq.eis.trainup.services.AuthService
 import ar.com.unq.eis.trainup.services.JwtService
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service
 @Service
 class AuthServiceImpl(
     @Autowired
-    private val usuarioDAO: UsuarioDAO,
+    private val userDAO: UserDAO,
     @Autowired
     private val jwtService: JwtService,
     @Autowired
@@ -29,7 +29,7 @@ class AuthServiceImpl(
 
     override fun login(loginDTO: LoginDTO): AuthResponse {
         authenticationManager.authenticate(UsernamePasswordAuthenticationToken(loginDTO.username, loginDTO.password))
-        val user = usuarioDAO.findByUsername(loginDTO.username).orElseThrow {
+        val user = userDAO.findByUsername(loginDTO.username).orElseThrow {
             NoSuchElementException("No existe usuario ${loginDTO.username}")
         }
         val token = jwtService.getToken(user)
@@ -37,14 +37,14 @@ class AuthServiceImpl(
         return AuthResponse(token)
     }
 
-    override fun register(usuario: Usuario): AuthResponse {
+    override fun register(user: User): AuthResponse {
         try {
-            usuario.password = passwordEncoder.encode(usuario.password)
-            usuarioDAO.save(usuario)
+            user.password = passwordEncoder.encode(user.password)
+            userDAO.save(user)
         } catch (e: DuplicateKeyException) {
-            throw UsuarioDuplicadoException(usuario.username)
+            throw UsuarioDuplicadoException(user.username)
         }
 
-        return AuthResponse(token = jwtService.getToken(usuario))
+        return AuthResponse(token = jwtService.getToken(user))
     }
 }

@@ -1,55 +1,54 @@
 package ar.com.unq.eis.trainup.controller.dto
 
-import ar.com.unq.eis.trainup.model.Rutina
+import ar.com.unq.eis.trainup.model.Routine
 import java.time.LocalDateTime
 
 data class RutinaDTO(
     var id: String? = null,
-    var nombre: String = "",
+    var name: String = "",
     var img: String?=null,
-    var descripcion: String = "",
-    var categoria: String = "",
-    var dificultad: String = "",
-    var duracionMinutos: Int = 0,
-    var objetivo: String = "",
-    var frecuenciaSemanal: Int = 0,
-    var fechaCreacion: String = "",
-    var ejercicios: MutableList<EjercicioDTO> = mutableListOf()
+    var description: String = "",
+    var category: String = "",
+    var dificulty: String = "",
+    var durationMinutes: Int = 0,
+    var objective: String = "",
+    var weeklyFrequency: Int = 0,
+    var creationDate: String = "",
+    var exercises: MutableList<EjercicioDTO> = mutableListOf()
 ) {
 
     companion object {
-        fun desdeModelo(rutina: Rutina): RutinaDTO {
+        fun desdeModelo(routine: Routine): RutinaDTO {
             return RutinaDTO(
-                id = rutina.id,
-                nombre = rutina.nombre,
-                img = rutina.img,
-                descripcion = rutina.descripcion,
-                categoria = rutina.categoria,
-                dificultad = rutina.dificultad,
-                duracionMinutos = rutina.duracionMinutos,
-                objetivo = rutina.objetivo,
-                frecuenciaSemanal = rutina.frecuenciaSemanal,
-                fechaCreacion = rutina.fechaCreacion.toString(),
-                ejercicios = rutina.ejercicios.map { EjercicioDTO.desdeModelo(it) }.toMutableList()
+                id = routine.id,
+                name = routine.name,
+                img = routine.img,
+                description = routine.description,
+                category = routine.category,
+                dificulty = routine.difficulty,
+                durationMinutes = routine.durationMinutes,
+                objective = routine.objective,
+                weeklyFrequency = routine.weeklyFrequency,
+                creationDate = routine.creationDate.toString(),
+                exercises = routine.exercises.map { EjercicioDTO.desdeModelo(it) }.toMutableList()
             )
         }
     }
 
-    fun aModelo(): Rutina {
-        return Rutina(
+    fun aModelo(): Routine {
+        return Routine(
             id = this.id,
-            nombre = this.nombre,
+            name = this.name,
             img= this.img,
-            descripcion = this.descripcion,
-            categoria = this.categoria,
-            dificultad = this.dificultad,
-            duracionMinutos = this.duracionMinutos,
-            objetivo = this.objetivo,
-            frecuenciaSemanal = this.frecuenciaSemanal,
-            ejercicios = this.ejercicios.map { it.aModelo() }.toMutableList()
-        ).also {
-            it.fechaCreacion = LocalDateTime.parse(this.fechaCreacion)
-        }
+            description = this.description,
+            category = this.category,
+            difficulty = this.dificulty,
+            durationMinutes = this.durationMinutes,
+            objective = this.objective,
+            weeklyFrequency = this.weeklyFrequency,
+            exercises = this.exercises.map { it.aModelo() }.toMutableList()
+        )
+            .also { it.creationDate = LocalDateTime.parse(this.creationDate) }
     }
 
 }

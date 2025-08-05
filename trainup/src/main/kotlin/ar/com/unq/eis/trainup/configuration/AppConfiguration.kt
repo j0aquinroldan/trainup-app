@@ -1,6 +1,6 @@
 package ar.com.unq.eis.trainup.configuration
 
-import ar.com.unq.eis.trainup.dao.UsuarioDAO
+import ar.com.unq.eis.trainup.dao.UserDAO
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -25,7 +25,7 @@ class AppConfiguration(
 ) {
     @Autowired
     @Lazy
-    private lateinit var usuarioDAO: UsuarioDAO
+    private lateinit var userDAO: UserDAO
 
     @Value("\${spring.data.mongodb.uri}")
     private lateinit var mongoUri: String
@@ -63,7 +63,7 @@ class AppConfiguration(
     @Bean
     fun getUserDetailService(): UserDetailsService {
         return UserDetailsService { username ->
-            usuarioDAO.findByUsername(username).orElseThrow { UsernameNotFoundException("User not found") }
+            userDAO.findByUsername(username).orElseThrow { UsernameNotFoundException("User not found") }
         }
     }
 

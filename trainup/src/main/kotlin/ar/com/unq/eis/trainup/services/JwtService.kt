@@ -1,6 +1,6 @@
 package ar.com.unq.eis.trainup.services
 
-import ar.com.unq.eis.trainup.model.Usuario
+import ar.com.unq.eis.trainup.model.User
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
@@ -16,8 +16,13 @@ class JwtService(
 ) {
 
 
+<<<<<<< Updated upstream
     fun getToken(user: Usuario): String {
         return getToken(hashMapOf(Pair("rol", user.rol)), user)
+=======
+    fun getToken(user: User): String {
+        return getToken(hashMapOf(Pair("rol", user.role)), user)
+>>>>>>> Stashed changes
     }
 
     fun getToken(extraClaims: Map<String, Any>, user: UserDetails): String {

@@ -1,6 +1,6 @@
 package ar.com.unq.eis.trainup.controller.dto
 
-import ar.com.unq.eis.trainup.model.Ejercicio
+import ar.com.unq.eis.trainup.model.Exercise
 
  class EjercicioDTO(
     var id: String? = null,
@@ -16,24 +16,24 @@ import ar.com.unq.eis.trainup.model.Ejercicio
 ) {
 
     companion object {
-        fun desdeModelo(ejercicio: Ejercicio): EjercicioDTO {
+        fun desdeModelo(exercise: Exercise): EjercicioDTO {
             return EjercicioDTO(
-                id = ejercicio.id,
-                nombre = ejercicio.nombre,
-                descripcion = ejercicio.descripcion,
-                repeticiones = ejercicio.repeticiones,
-                peso = ejercicio.peso,
-                musculo = ejercicio.musculo,
-                series = ejercicio.series,
-                descansoSegundos = ejercicio.descansoSegundos,
-                equipo = ejercicio.equipo,
-                instrucciones = ejercicio.instrucciones
+                id = exercise.id,
+                nombre = exercise.nombre,
+                descripcion = exercise.descripcion,
+                repeticiones = exercise.repeticiones,
+                peso = exercise.peso,
+                musculo = exercise.musculo,
+                series = exercise.series,
+                descansoSegundos = exercise.descansoSegundos,
+                equipo = exercise.equipo,
+                instrucciones = exercise.instrucciones
             )
         }
     }
 
-    fun aModelo(): Ejercicio {
-        return Ejercicio(
+    fun aModelo(): Exercise {
+        return Exercise(
             id = this.id,
             nombre = this.nombre,
             descripcion = this.descripcion,

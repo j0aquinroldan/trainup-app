@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document(collection = "ejercicios")
-class Ejercicio {
+class Exercise {
 
     @Id
     var id: String? = null
@@ -51,9 +51,5 @@ class Ejercicio {
         this.descansoSegundos = descansoSegundos
         this.equipo = equipo
         this.instrucciones = instrucciones
-    }
-
-    override fun toString(): String {
-        return "Ejercicio(id='$id', nombre='$nombre', descripcion='$descripcion', repeticiones=$repeticiones, peso=$peso, musculo='$musculo', series=$series, descansoSegundos=$descansoSegundos, equipo='$equipo', instrucciones='$instrucciones')"
     }
 }
